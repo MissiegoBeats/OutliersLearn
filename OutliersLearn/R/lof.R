@@ -1,22 +1,17 @@
 lof <- function(inputData,K,threshold,tutorialMode){
 
-  #TODO: añadir descripción
-
-  #TODO: traducir todo al inglés (se ha desarrollado así por comodidad inicial)
-  #y añadir opción de modo paso a paso (para la explicación)
-
   #Primero calculamos la distancia entre cada punto y el resto de puntos
 
-  if(tutorialMode){ #Caso en el que se quiera recibir la explicación
-    #Conversión a matriz si es un data frame:
+  if(tutorialMode){ #Caso en el que se quiera recibir la explicacion
+    #Conversion a matriz si es un data frame:
     if(is.data.frame(inputData)){
       inputData = as.matrix(inputData);
     }
-    message("Calculo de las distancias euclídeas entre todos los puntos:")
+    message("Calculo de las distancias euclideas entre todos los puntos:")
     #Primero tenemos que calcular las distancias
     distancias = c();
-    #euclídeas entre cada uno de los puntos
-    for(i in 1:dim(inputData)[1]){ #dim(inputData)[1] es el número de filas
+    #euclideas entre cada uno de los puntos
+    for(i in 1:dim(inputData)[1]){ #dim(inputData)[1] es el numero de filas
       #Punto sobre el que vamos a comparar:
       message("\tCalculando distancia entre los puntos:")
       puntoA = c(inputData[i,1],inputData[i,2]);
@@ -30,13 +25,13 @@ lof <- function(inputData,K,threshold,tutorialMode){
         print(dist_manhattan(puntoA,puntoB));
       }
     }
-    message("La matriz de distancias euclídeas queda de la siguiente manera:");
+    message("La matriz de distancias euclideas queda de la siguiente manera:");
     distancias = matrix(distancias,dim(inputData)[1],dim(inputData)[1]);
     print(distancias);
-    distanciasOriginal = distancias; #Se utilizará más adelante (lo necesitamos sin ordenar por columnas)
+    distanciasOriginal = distancias; #Se utilizara mas adelante (lo necesitamos sin ordenar por columnas)
     message("Calculadas las distancias entre los puntos, calculamos el cardinal para cada punto");
     message("Para ello tenemos que ordenar la matriz de distancias (por columnas)");
-    for(i in 1:dim(distancias)[2]){ #dim(inputData)[2] es el número de columnas
+    for(i in 1:dim(distancias)[2]){ #dim(inputData)[2] es el numero de columnas
       distancias[,i] = sort(distancias[,i]);
     }
     message("La matriz de distancias ordenada por columnas es la siguiente");
@@ -45,13 +40,13 @@ lof <- function(inputData,K,threshold,tutorialMode){
     cardinales = c();
     for(i in 1:dim(distancias)[2]){
       columna = distancias[,i];
-      #Llegamos hasta K (podría hacerse con un bucle pero así es más eficiente)
+      #Llegamos hasta K (podria hacerse con un bucle pero asi es mas eficiente)
       pos = K;
-      #Comprobamos cuantos valores hay iguales al de la "posición" K
+      #Comprobamos cuantos valores hay iguales al de la "posicion" K
       while(columna[pos] == columna[pos+1]){
         pos = pos+1;
       }
-      #Los cardinales obtenidos tienen sumado un 1 ya que cuenta la distancia con él mismo
+      #Los cardinales obtenidos tienen sumado un 1 ya que cuenta la distancia con el mismo
       #Por ello le restamos 1
       cardinales = c(cardinales,pos-1);
     }
@@ -66,11 +61,11 @@ lof <- function(inputData,K,threshold,tutorialMode){
       limite_bucle = cardinal+1; #De esta manera el bucle llega hasta cardinal incluido
       sumatorio = 0;
       puntosTemp = c();
-      for(j in 2:limite_bucle){ #Saltamos la primera posición ya que es la distancia con él mismo
+      for(j in 2:limite_bucle){ #Saltamos la primera posicion ya que es la distancia con el mismo
         sumatorio = sumatorio + columna[j];
-        for(k in 1:dim(distanciasOriginal)[1]){ #dim(distanciasOriginal)[1] -> número de filas, es decir, número de puntos
+        for(k in 1:dim(distanciasOriginal)[1]){ #dim(distanciasOriginal)[1] -> numero de filas, es decir, numero de puntos
           if(distanciasOriginal[k,i] == columna[j] && !is.element(k, puntosTemp)){
-            puntosTemp = c(puntosTemp,k); #Añadimos el punto a los puntos usados para el punto i
+            puntosTemp = c(puntosTemp,k); #Agnadimos el punto a los puntos usados para el punto i
           }
         }
       }
@@ -98,14 +93,14 @@ lof <- function(inputData,K,threshold,tutorialMode){
       }
     }
   }else{
-    #Conversión a matriz si es un data frame:
+    #Conversion a matriz si es un data frame:
     if(is.data.frame(inputData)){
       inputData = as.matrix(inputData);
     }
     #Primero tenemos que calcular las distancias
     distancias = c();
-    #euclídeas entre cada uno de los puntos
-    for(i in 1:dim(inputData)[1]){ #dim(inputData)[1] es el número de filas
+    #euclideas entre cada uno de los puntos
+    for(i in 1:dim(inputData)[1]){ #dim(inputData)[1] es el numero de filas
       #Punto sobre el que vamos a comparar:
       puntoA = c(inputData[i,1],inputData[i,2]);
       for(j in 1:dim(inputData)[1]){
@@ -115,23 +110,23 @@ lof <- function(inputData,K,threshold,tutorialMode){
       }
     }
     distancias = matrix(distancias,dim(inputData)[1],dim(inputData)[1]);
-    distanciasOriginal = distancias; #Se utilizará más adelante (lo necesitamos sin ordenar por columnas)
+    distanciasOriginal = distancias; #Se utilizara mas adelante (lo necesitamos sin ordenar por columnas)
     #Calculadas las distancias entre los puntos, calculamos el cardinal para cada punto.
     #Para ello tenemos que ordenar la matriz de distancias (por columnas)
-    for(i in 1:dim(distancias)[2]){ #dim(inputData)[2] es el número de columnas
+    for(i in 1:dim(distancias)[2]){ #dim(inputData)[2] es el numero de columnas
       distancias[,i] = sort(distancias[,i]);
     }
     #Obtenemos un vector de los cardinales
     cardinales = c();
     for(i in 1:dim(distancias)[2]){
       columna = distancias[,i];
-      #Llegamos hasta K (podría hacerse con un bucle pero así es más eficiente)
+      #Llegamos hasta K (podria hacerse con un bucle pero asi es mas eficiente)
       pos = K;
-      #Comprobamos cuantos valores hay iguales al de la "posición" K
+      #Comprobamos cuantos valores hay iguales al de la "posicion" K
       while(columna[pos] == columna[pos+1]){
         pos = pos+1;
       }
-      #Los cardinales obtenidos tienen sumado un 1 ya que cuenta la distancia con él mismo
+      #Los cardinales obtenidos tienen sumado un 1 ya que cuenta la distancia con el mismo
       #Por ello le restamos 1
       cardinales = c(cardinales,pos-1);
     }
@@ -145,11 +140,11 @@ lof <- function(inputData,K,threshold,tutorialMode){
       limite_bucle = cardinal+1; #De esta manera el bucle llega hasta cardinal incluido
       sumatorio = 0;
       puntosTemp = c();
-      for(j in 2:limite_bucle){ #Saltamos la primera posición ya que es la distancia con él mismo
+      for(j in 2:limite_bucle){ #Saltamos la primera posicion ya que es la distancia con el mismo
         sumatorio = sumatorio + columna[j];
-        for(k in 1:dim(distanciasOriginal)[1]){ #dim(distanciasOriginal)[1] -> número de filas, es decir, número de puntos
+        for(k in 1:dim(distanciasOriginal)[1]){ #dim(distanciasOriginal)[1] -> numero de filas, es decir, numero de puntos
           if(distanciasOriginal[k,i] == columna[j] && !is.element(k, puntosTemp)){
-            puntosTemp = c(puntosTemp,k); #Añadimos el punto a los puntos usados para el punto i
+            puntosTemp = c(puntosTemp,k); #Agnadimos el punto a los puntos usados para el punto i
           }
         }
       }

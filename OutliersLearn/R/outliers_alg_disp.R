@@ -1,10 +1,10 @@
 outliers_alg_disp <- function(datos, d)
 {
 
-  #TODO: traducir a inglés y añadir opción de explicación paso por paso
+  #TODO: traducir a ingles y agnadir opcion de explicacion paso por paso
   #TODO: cambiar el nombre al algoritmo
 
-  #Declaramos las variables temporales que se van a utilizar en la función
+  #Declaramos las variables temporales que se van a utilizar en la funcion
   sumatorio = 0;
   sumatorioD = 0;
 
@@ -14,16 +14,16 @@ outliers_alg_disp <- function(datos, d)
   }
   media = sumatorio/length(datos);
 
-  #Calculamos la desviación típica
+  #Calculamos la desviacion tipica
   for(i in 1:length(datos)){
     sumatorioD = sumatorioD + ((datos[i]-media)^2);
   }
   desviacion = sqrt(sumatorioD/length(datos));
 
-  #Calculamos los límites de la siguiente forma:
+  #Calculamos los limites de la siguiente forma:
   limites = c(media - desviacion * d, media + desviacion * d)
-  #Mostramos los límites
-  print("Límites: ");
+  #Mostramos los limites
+  print("Limites: ");
   print(limites);
 
   #Obtenemos los outlier (los mostramos por pantalla)
