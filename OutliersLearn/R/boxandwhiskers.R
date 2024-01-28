@@ -31,7 +31,7 @@ boxandwhiskers <- function(data,d,tutorialMode){
     message("\tStep 4: Identify outliers as values that fall outside the interval calculated in step 3")
     keepAsking = TRUE
     while(keepAsking){
-      learnMoreQuartiles = readline("Do you want to learn more about how to calculate quartiles? (Y/N)")
+      learnMoreQuartiles = readline("Do you want to learn more about how to calculate quartiles? (Y/N) \n")
       learnMoreQuartiles = toupper(learnMoreQuartiles)
       if(learnMoreQuartiles == 'Y'){
         keepAsking = FALSE
@@ -61,13 +61,13 @@ boxandwhiskers <- function(data,d,tutorialMode){
     message("Now that we have calculated the limits, we will check if every single value is 'inside' those boundaries obtained.")
     message("If the value is not included inside the limits, it will be detected as an outlier")
     for(i in 1:length(data)){
-      print(sprintf("Checking value in the position %d. It's value is %d",i,data[i]))
+      print(sprintf("Checking value in the position %d. It's value is %.3f", i, data[i]))
       if(data[i] < limits[1]){
-        print(sprintf("The value in position %d with value %d has been detected as an outlier", i, data[i]))
-        print(sprintf("It was detected as an outlier because it's value is lower than the low limit %d",limits[1]))
+        print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
+        print(sprintf("It was detected as an outlier because it's value is lower than the low limit %.3f",limits[1]))
       }else if(data[i] > limits[2]){
-        print(sprintf("The value in position %d with value %d has been detected as an outlier", i, data[i]))
-        print(sprintf("It was detected as an outlier because it's value is higher than the top limit %d",limits[2]))
+        print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
+        print(sprintf("It was detected as an outlier because it's value is higher than the top limit %.3f",limits[2]))
       }else{
         print("Not an outlier, it's inside the limits")
       }
@@ -82,13 +82,14 @@ boxandwhiskers <- function(data,d,tutorialMode){
     print(limits);
     for(i in 1:length(data)){
       if(data[i] < limits[1]){
-        print(sprintf("The value in position %d with value %d has been detected as an outlier", i, data[i]))
-        print(sprintf("It was detected as an outlier because it's value is lower than the low limit %d",limits[1]))
+        print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
+        print(sprintf("It was detected as an outlier because it's value is lower than the low limit %.3f",limits[1]))
+        print("--------------------------------------------------------------------------------------------")
       }else if(data[i] > limits[2]){
-        print(sprintf("The value in position %d with value %d has been detected as an outlier", i, data[i]))
-        print(sprintf("It was detected as an outlier because it's value is higher than the top limit %d",limits[2]))
+        print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
+        print(sprintf("It was detected as an outlier because it's value is higher than the top limit %.3f",limits[2]))
+        print("--------------------------------------------------------------------------------------------")
       }
-      print("--------------------------------------------------------------------------------------------")
     }
   }
 }
