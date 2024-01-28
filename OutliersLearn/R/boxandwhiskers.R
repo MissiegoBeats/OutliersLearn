@@ -1,15 +1,32 @@
+#' Box And Whiskers
+#'
+#' This function implements the box & whiskers algorithm to detect outliers
+#'
+#' @param data Input data.
+#' @param d Degree of outlier or distance at which an event is considered an outlier
+#' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
+#' @examples
+#' boxandwhiskers(inputData, 2, FALSE)
+#' boxandwhiskers(c(1,2,3,4,5,6,7), 1, TRUE)
+#'
+#' @export
 boxandwhiskers <- function(data,d,tutorialMode){
+  #TODO: comprobar si tendriamos que hacer source de las funciones que vamos a usar (en principio no)
 
-  #TODO añadir documentación inicial
+  #Now we must preprocess the data to "standardize" it.
+  #It's important to understand that we must transform N dimensional arrays to 1D arrays (e.g. to a vector)
+  #because of the nature of this algorithm (it does not process multidimensional arrays)
+  #We make use of the transform_to_vector() function included in this package
+  data <- transform_to_vector(data)
 
-  if(tutorialMode){
+  if(tutorialMode){ #Case that has the tutorialMode activated
     message("The tutorial mode has been activated for the box and whiskers algorithm (outlier detection)")
     message("Before processing the data, we must understand the algorithm and the 'theory' behind it.")
     message("The algorithm is made up with 4 steps: ")
     message("\tStep 1: Determine the degree of outlier or distance at which an event is considered an outlier (arbitrary). We will name it 'd'")
     message("\tStep 2: Sort the data and obtain quartiles")
     message("\tStep 3: Calculate the interval limits for outliers using the equation:")
-    message("\t\t(Q_1 - d · (Q_3 - Q_1), Q_3 + d · (Q_3 - Q_1))")
+    message("\t\t(Q_1 - d * (Q_3 - Q_1), Q_3 + d * (Q_3 - Q_1))")
     message("\tBeing Q_1 and Q_3 the 1st and 3rd cuartile. Notice that here we use the value 'd' (it affects on the results so it must be carefully chosen)")
     message("\tStep 4: Identify outliers as values that fall outside the interval calculated in step 3")
     keepAsking = TRUE
@@ -57,7 +74,7 @@ boxandwhiskers <- function(data,d,tutorialMode){
       print("--------------------------------------------------------------------------------------------")
     }
     message("The algorithm has ended")
-  }else{
+  }else{ #Case tutorial mode is deactivated
     quantile1 = quantile(data,0.25);
     quantile3 = quantile(data,0.75);
     limits = c(quantile1 - d*(quantile3-quantile1), quantile3 + d*(quantile3-quantile1))
