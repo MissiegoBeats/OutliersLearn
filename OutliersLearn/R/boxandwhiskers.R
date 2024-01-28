@@ -6,8 +6,13 @@
 #' @param d Degree of outlier or distance at which an event is considered an outlier
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #' @examples
-#' boxandwhiskers(inputData, 2, FALSE)
-#' boxandwhiskers(c(1,2,3,4,5,6,7), 1, TRUE)
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
+#' inputData = data.frame(inputData)
+#' print(inputData)
+#' inputData <- transform_to_vector(inputData)
+#' print(inputData)
+#' boxandwhiskers(inputData,2,TRUE)
+#' boxandwhiskers(inputData,2,FALSE)
 #'
 #' @export
 boxandwhiskers <- function(data,d,tutorialMode){
