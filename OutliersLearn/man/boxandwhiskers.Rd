@@ -26,3 +26,6 @@ boxandwhiskers(inputData,2,TRUE)
 boxandwhiskers(inputData,2,FALSE)
 
 }
+\author{
+Andres Missiego Manjon
+}

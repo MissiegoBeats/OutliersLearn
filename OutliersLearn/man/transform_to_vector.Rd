@@ -35,3 +35,6 @@ transformed_list <- transform_to_vector(list_data)
 transformed_data_frame <- transform_to_vector(data_frame_data)
 
 }
+\author{
+Andres Missiego Manjon
+}

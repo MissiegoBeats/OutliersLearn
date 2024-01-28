@@ -7,3 +7,7 @@
 #print(inputData)
 #boxandwhiskers(inputData,2,TRUE)
 #boxandwhiskers(inputData,2,FALSE)
+data = c(1,2,3,4,1,6,10,20)
+q1 = quantile(data, 0.25)
+q2 = quantile(data, 0.5)
+q3 = quantile(data, 0.75)

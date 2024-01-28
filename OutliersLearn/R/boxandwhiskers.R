@@ -2,6 +2,7 @@
 #'
 #' This function implements the box & whiskers algorithm to detect outliers
 #'
+#' @author Andres Missiego Manjon
 #' @param data Input data.
 #' @param d Degree of outlier or distance at which an event is considered an outlier
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
@@ -45,7 +46,7 @@ boxandwhiskers <- function(data,d,tutorialMode){
         message("\t-Deciles: 10 equal parts")
         message("\t-Percentiles: 100 equal parts")
         message("The function quantile.R that has been developed gives a closer look into how quantiles are calculated:")
-        dput(quantile)
+        dput(quantile_outliersLearn)
       }else if(learnMoreQuartiles == 'N'){
         keepAsking = FALSE
       }else{
@@ -55,10 +56,10 @@ boxandwhiskers <- function(data,d,tutorialMode){
     message("Now we will apply this knowledge to the data given to obtain the outliers")
     message("Calculating the quantiles with the function quantile() (available on this package)")
     message("First we calculate the 1st quartile (quantile(data,0.25))")
-    quantile1 = quantile(data,0.25);
+    quantile1 = quantile_outliersLearn(data,0.25);
     print(quantile1)
     message("Now we calculate the 3rd quartile (quantile(data, 0.75))")
-    quantile3 = quantile(data,0.75);
+    quantile3 = quantile_outliersLearn(data,0.75);
     print(quantile3)
     message("Using the formula given before, we obtain the interval limits:")
     limits = c(quantile1 - d*(quantile3-quantile1), quantile3 + d*(quantile3-quantile1))
@@ -80,8 +81,8 @@ boxandwhiskers <- function(data,d,tutorialMode){
     }
     message("The algorithm has ended")
   }else{ #Case tutorial mode is deactivated
-    quantile1 = quantile(data,0.25);
-    quantile3 = quantile(data,0.75);
+    quantile1 = quantile_outliersLearn(data,0.25);
+    quantile3 = quantile_outliersLearn(data,0.75);
     limits = c(quantile1 - d*(quantile3-quantile1), quantile3 + d*(quantile3-quantile1))
     print("Obtained limits: ");
     print(limits);

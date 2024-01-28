@@ -2,6 +2,7 @@
 #'
 #' Transform any type of data to a vector
 #'
+#' @author Andres Missiego Manjon
 #' @param data Input data.
 #' @return Data formatted as a vector
 #' @examples
