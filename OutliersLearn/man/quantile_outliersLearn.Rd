@@ -7,7 +7,7 @@
 quantile_outliersLearn(data, v)
 }
 \arguments{
-\item{data}{Input Data vector}
+\item{data}{Input Data}
 
 \item{v}{Goes from 0 to 1 (e.g. 0.25). Indicates the quantile that wants to be obtained}
 }
@@ -23,6 +23,7 @@ q1 = quantile(data, 0.25)
 q2 = quantile(data, 0.5)
 q3 = quantile(data, 0.75)
 
+q = quantile(c(12,2,3,4,1,13), 0.60)
 }
 \author{
 Andres Missiego Manjon
