@@ -37,6 +37,7 @@ boxandwhiskers <- function(data,d,tutorialMode){
     while(keepAsking){
       learnMoreQuartiles = readline("Do you want to learn more about how to calculate quartiles? (Y/N) \n")
       learnMoreQuartiles = toupper(learnMoreQuartiles)
+      print(learnMoreQuartiles)
       if(learnMoreQuartiles == 'Y'){
         keepAsking = FALSE
         message("Quantiles are elements that allow dividing an ordered set of data into equal-sized parts.")
@@ -64,16 +65,20 @@ boxandwhiskers <- function(data,d,tutorialMode){
     print(limits);
     message("Now that we have calculated the limits, we will check if every single value is 'inside' those boundaries obtained.")
     message("If the value is not included inside the limits, it will be detected as an outlier")
+    plot(1, type="n", main="Result", xlab="Position in the vector", ylab="Value", xlim=c(0, length(data) + 1), ylim=range(data))
     for(i in 1:length(data)){
       print(sprintf("Checking value in the position %d. It's value is %.3f", i, data[i]))
       if(data[i] < limits[1]){
         print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
         print(sprintf("It was detected as an outlier because it's value is lower than the low limit %.3f",limits[1]))
+        points(i,data[i],col="red",pch=16)
       }else if(data[i] > limits[2]){
         print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
         print(sprintf("It was detected as an outlier because it's value is higher than the top limit %.3f",limits[2]))
+        points(i,data[i],col="red",pch=16)
       }else{
         print("Not an outlier, it's inside the limits")
+        points(i,data[i],col="blue",pch=16)
       }
       print("--------------------------------------------------------------------------------------------")
     }
@@ -84,15 +89,20 @@ boxandwhiskers <- function(data,d,tutorialMode){
     limits = c(quantile1 - d*(quantile3-quantile1), quantile3 + d*(quantile3-quantile1))
     print("Obtained limits: ");
     print(limits);
+    plot(1, type="n", main="Result", xlab="Position in the vector", ylab="Value", xlim=c(0, length(data) + 1), ylim=range(data))
     for(i in 1:length(data)){
       if(data[i] < limits[1]){
         print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
         print(sprintf("It was detected as an outlier because it's value is lower than the low limit %.3f",limits[1]))
         print("--------------------------------------------------------------------------------------------")
+        points(i,data[i],col="red",pch=16)
       }else if(data[i] > limits[2]){
         print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
         print(sprintf("It was detected as an outlier because it's value is higher than the top limit %.3f",limits[2]))
         print("--------------------------------------------------------------------------------------------")
+        points(i,data[i],col="red",pch=16)
+      }else{
+        points(i,data[i],col="blue",pch=16)
       }
     }
   }
