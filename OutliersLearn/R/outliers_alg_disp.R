@@ -1,39 +1,41 @@
-outliers_alg_disp <- function(datos, d)
+outliers_alg_disp <- function(data, d, tutorialMode)
 {
 
-  #TODO: traducir a ingles y agnadir opcion de explicacion paso por paso
-  #TODO: cambiar el nombre al algoritmo
+  if(tutorialMode){
 
-  #Declaramos las variables temporales que se van a utilizar en la funcion
-  sumatorio = 0;
-  sumatorioD = 0;
+  }else{
+    #Declare the temp variables
+    sum = 0; #Will be used to calculate the mean
+    sumD = 0; #Will be used to calculate the standard deviation
 
-  #Calculamos la media:
-  for(i in 1:length(datos)){
-    sumatorio = sumatorio + datos[i];
-  }
-  media = sumatorio/length(datos);
+    #Mean calculation:
+    for(i in 1:length(data)){
+      sum = sum + data[i];
+    }
+    mean = sum/length(data);
 
-  #Calculamos la desviacion tipica
-  for(i in 1:length(datos)){
-    sumatorioD = sumatorioD + ((datos[i]-media)^2);
-  }
-  desviacion = sqrt(sumatorioD/length(datos));
+    #Standard deviation calculation:
+    for(i in 1:length(data)){
+      sumD = sumD + ((data[i]-mean)^2);
+    }
+    stddev = sqrt(sumD/length(data));
 
-  #Calculamos los limites de la siguiente forma:
-  limites = c(media - desviacion * d, media + desviacion * d)
-  #Mostramos los limites
-  print("Limites: ");
-  print(limites);
+    #Calculate the limits:
+    limits = c(mean - stddev * d, mean + stddev * d)
+    print("Limits: ");
+    print(limits);
 
-  #Obtenemos los outlier (los mostramos por pantalla)
-  for(i in 1:length(datos)){
-    if(datos[i] < limites[1] || datos[i] > limites[2]){
-      print("El suceso");
-      print(i);
-      print("Con valor");
-      print(datos[i]);
-      print("Es un outlier");
+    #Obtain outliers using the limits obtained earlier
+    for(i in 1:length(data)){
+      if(data[i] < limits[1]){
+        print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
+        print(sprintf("It was detected as an outlier because it's value is lower than the low limit %.3f",limits[1]))
+        print("--------------------------------------------------------------------------------------------")
+      }else if(data[i] > limits[2]){
+        print(sprintf("The value in position %d with value %.3f has been detected as an outlier", i, data[i]))
+        print(sprintf("It was detected as an outlier because it's value is higher than the top limit %.3f",limits[2]))
+        print("--------------------------------------------------------------------------------------------")
+      }
     }
   }
 }
