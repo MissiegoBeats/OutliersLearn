@@ -26,7 +26,7 @@ sd_method <- function(data, d, tutorialMode)
   data <- transform_to_vector(data)
 
   if(tutorialMode){
-    message("The tutorial mode has been activated for the  algorithm (outlier detection)")
+    message("The tutorial mode has been activated for the standard deviation method algorithm (outlier detection)")
     message("Before processing the data, we must understand the algorithm and the 'theory' behind it.")
     message("Identification of outliers using Statistics and Standard Deviation involves the following steps:")
     message("\t1. Determination of the degree of outlier (We will call it 'd')")
