@@ -32,7 +32,7 @@ Will be available to download/install from CRAN
 
 - euclidean distance function
   
-  ``
+  `euclidean_distance()`
 
 - quantile function
   
