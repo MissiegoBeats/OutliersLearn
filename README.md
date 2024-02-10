@@ -28,7 +28,7 @@ Will be available to download/install from CRAN
 ## Other functions included
 - manhattan distance function
   
-  ``
+  `manhattan_dist()`
 
 - euclidean distance function
   
