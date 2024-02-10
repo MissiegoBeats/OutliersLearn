@@ -36,9 +36,9 @@ lof <- function(inputData,K,threshold,tutorialMode){
         #Punto sobre el que se compara puntoA
         puntoB = c(inputData[j,1],inputData[j,2]);
         print(puntoB);
-        distancias = c(distancias,dist_manhattan(puntoA,puntoB));
+        distancias = c(distancias,manhattan_dist(puntoA,puntoB));
         message("\tDistancia calculada:");
-        print(dist_manhattan(puntoA,puntoB));
+        print(manhattan_dist(puntoA,puntoB));
       }
     }
     message("La matriz de distancias euclideas queda de la siguiente manera:");
@@ -124,7 +124,7 @@ lof <- function(inputData,K,threshold,tutorialMode){
       for(j in 1:dim(inputData)[1]){
         #Punto sobre el que se compara puntoA
         puntoB = c(inputData[j,1],inputData[j,2]);
-        distancias = c(distancias,dist_manhattan(puntoA,puntoB));
+        distancias = c(distancias,manhattan_dist(puntoA,puntoB));
       }
     }
     distancias = matrix(distancias,dim(inputData)[1],dim(inputData)[1]);
