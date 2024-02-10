@@ -1,3 +1,17 @@
+#' lof
+#'
+#' Local Outlier Factor algorithm to detect outliers
+#'
+#' @author Andres Missiego Manjon
+#' @param inputData Input Data (must be a data.frame)
+#' @param K
+#' @param threshold
+#' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
+#'
+#' @examples
+#'
+#' @export
+
 lof <- function(inputData,K,threshold,tutorialMode){
 
   #Primero calculamos la distancia entre cada punto y el resto de puntos
@@ -6,6 +20,8 @@ lof <- function(inputData,K,threshold,tutorialMode){
     #Conversion a matriz si es un data frame:
     if(is.data.frame(inputData)){
       inputData = as.matrix(inputData);
+    }else{
+      stop("inputData must be a dataframe")
     }
     message("Calculo de las distancias euclideas entre todos los puntos:")
     #Primero tenemos que calcular las distancias
@@ -96,6 +112,8 @@ lof <- function(inputData,K,threshold,tutorialMode){
     #Conversion a matriz si es un data frame:
     if(is.data.frame(inputData)){
       inputData = as.matrix(inputData);
+    }else{
+      stop("inputData must be a dataframe")
     }
     #Primero tenemos que calcular las distancias
     distancias = c();
