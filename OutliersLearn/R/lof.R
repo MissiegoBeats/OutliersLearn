@@ -23,6 +23,10 @@ lof <- function(inputData, K, threshold, tutorialMode) {
   }
 
   if (tutorialMode) {#Case the user wants the full explanation
+
+    #TODO: add theorical explanation & complete the explanation of the execution
+
+
     message("Calculate Euclidean distances between all points:")
     #First we have to calculate the distances
     distances = c();
@@ -89,20 +93,20 @@ lof <- function(inputData, K, threshold, tutorialMode) {
       densities = c(densities, density);
       used_points = c(used_points, list(tempPoints));
     }
-    #With the calculated densities, we are going to calculate the average relative density (drm) for each point:
-    drms = c();
+    #With the calculated densities, we are going to calculate the average relative density (ard) for each point:
+    ards = c();
     for (i in 1:length(densities)) {
       sum_densities = 0;
       point_density = densities[i];
       for (j in 1:length(used_points[[i]])) {
         sum_densities = sum_densities + densities[used_points[[i]][[j]]];
       }
-      drm = point_density / (sum_densities / cardinals[i]);
-      drms = c(drms, drm);
+      ard = point_density / (sum_densities / cardinals[i]);
+      ards = c(ards, ard);
 
-      #TODO: this is temporary:
+      #TODO: this is temporary (must be changed for another outlier average relative density related decision):
 
-      if (drm < threshold) {
+      if (ard < threshold) {
         print("The point");
         print(i);
         print("Is an outlier");
@@ -164,20 +168,20 @@ lof <- function(inputData, K, threshold, tutorialMode) {
       densities = c(densities, density);
       used_points = c(used_points, list(tempPoints));
     }
-    #With the calculated densities, we are going to calculate the average relative density (drm) for each point:
-    drms = c();
+    #With the calculated densities, we are going to calculate the average relative density (ard) for each point:
+    ards = c();
     for (i in 1:length(densities)) {
       sum_densities = 0;
       point_density = densities[i];
       for (j in 1:length(used_points[[i]])) {
         sum_densities = sum_densities + densities[used_points[[i]][[j]]];
       }
-      drm = point_density / (sum_densities / cardinals[i]);
-      drms = c(drms, drm);
+      ard = point_density / (sum_densities / cardinals[i]);
+      ards = c(ards, ard);
 
-      #TODO: this is temporary:
+      #TODO: this is temporary (must be changed for another outlier average relative density related decision):
 
-      if (drm < threshold) {
+      if (ard < threshold) {
         print("The point");
         print(i);
         print("Is an outlier");
