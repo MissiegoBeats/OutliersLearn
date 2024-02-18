@@ -12,181 +12,175 @@
 #'
 #' @export
 
-lof <- function(inputData,K,threshold,tutorialMode){
+lof <- function(inputData, K, threshold, tutorialMode) {
 
-  #Primero calculamos la distancia entre cada punto y el resto de puntos
+  #Conversion to matrix if it is a data frame (this is common to both options)
+  #and it's not relevant for the explanation
+  if (is.data.frame(inputData)) {
+    inputData = as.matrix(inputData);
+  } else {
+    stop("inputData must be a dataframe")
+  }
 
-  if(tutorialMode){ #Caso en el que se quiera recibir la explicacion
-    #Conversion a matriz si es un data frame:
-    if(is.data.frame(inputData)){
-      inputData = as.matrix(inputData);
-    }else{
-      stop("inputData must be a dataframe")
-    }
-    message("Calculo de las distancias euclideas entre todos los puntos:")
-    #Primero tenemos que calcular las distancias
-    distancias = c();
-    #euclideas entre cada uno de los puntos
-    for(i in 1:dim(inputData)[1]){ #dim(inputData)[1] es el numero de filas
-      #Punto sobre el que vamos a comparar:
-      message("\tCalculando distancia entre los puntos:")
-      puntoA = c(inputData[i,1],inputData[i,2]);
-      print(puntoA);
-      for(j in 1:dim(inputData)[1]){
-        #Punto sobre el que se compara puntoA
-        puntoB = c(inputData[j,1],inputData[j,2]);
-        print(puntoB);
-        distancias = c(distancias,manhattan_dist(puntoA,puntoB));
-        message("\tDistancia calculada:");
-        print(manhattan_dist(puntoA,puntoB));
+  if (tutorialMode) {#Case the user wants the full explanation
+    message("Calculate Euclidean distances between all points:")
+    #First we have to calculate the distances
+    distances = c();
+    #Euclidean distances between each pair of points
+    for (i in 1:dim(inputData)[1]) {
+      #Point we are going to compare:
+      message("\tCalculating distance between points:")
+      pointA = c(inputData[i, 1], inputData[i, 2]);
+      print(pointA);
+      for (j in 1:dim(inputData)[1]) {
+        #Point to be compared with pointA
+        pointB = c(inputData[j, 1], inputData[j, 2]);
+        print(pointB);
+        distances = c(distances, manhattan_dist(pointA, pointB));
+        message("\tCalculated distance:");
+        print(manhattan_dist(pointA, pointB));
       }
     }
-    message("La matriz de distancias euclideas queda de la siguiente manera:");
-    distancias = matrix(distancias,dim(inputData)[1],dim(inputData)[1]);
-    print(distancias);
-    distanciasOriginal = distancias; #Se utilizara mas adelante (lo necesitamos sin ordenar por columnas)
-    message("Calculadas las distancias entre los puntos, calculamos el cardinal para cada punto");
-    message("Para ello tenemos que ordenar la matriz de distancias (por columnas)");
-    for(i in 1:dim(distancias)[2]){ #dim(inputData)[2] es el numero de columnas
-      distancias[,i] = sort(distancias[,i]);
+    message("The matrix of Euclidean distances is as follows:");
+    distances = matrix(distances, dim(inputData)[1], dim(inputData)[1]);
+    print(distances);
+    distancesOriginal = distances; #Will be used later (we need it unsorted by columns)
+    message("After calculating the distances between points, we calculate the cardinal for each point");
+    message("To do this, we need to sort the distance matrix (by columns)");
+    for (i in 1:dim(distances)[2]) {
+      distances[, i] = sort(distances[, i]);
     }
-    message("La matriz de distancias ordenada por columnas es la siguiente");
-    print(distancias);
-    message("Obtenemos un vector de los cardinales");
-    cardinales = c();
-    for(i in 1:dim(distancias)[2]){
-      columna = distancias[,i];
-      #Llegamos hasta K (podria hacerse con un bucle pero asi es mas eficiente)
+    message("The distance matrix sorted by columns is as follows:");
+    print(distances);
+    message("We obtain a vector of the cardinals");
+    cardinals = c();
+    for (i in 1:dim(distances)[2]) {
+      column = distances[, i];
+      #We reach up to K (could be done with a loop but this way is more efficient)
       pos = K;
-      #Comprobamos cuantos valores hay iguales al de la "posicion" K
-      while(columna[pos] == columna[pos+1]){
-        pos = pos+1;
+      #We check how many values are equal to the one at position K
+      while (column[pos] == column[pos + 1]) {
+        pos = pos + 1;
       }
-      #Los cardinales obtenidos tienen sumado un 1 ya que cuenta la distancia con el mismo
-      #Por ello le restamos 1
-      cardinales = c(cardinales,pos-1);
+      #The obtained cardinals have 1 added since they count the distance with itself
+      #So we subtract 1
+      cardinals = c(cardinals, pos - 1);
     }
-    print(cardinales);
-    #Con los cardinales obtenidos, obtenemos las densidades de cada punto:
-    densidades = c();
-    puntos_usados = c(); #Se trata de una estructura de inputData para almacenar los puntos que se han utilizado para cada
-    #uno de los puntos para calcular su densidad.
-    for(i in 1:dim(distancias)[2]){
-      columna = distancias[,i];
-      cardinal = cardinales[i];
-      limite_bucle = cardinal+1; #De esta manera el bucle llega hasta cardinal incluido
-      sumatorio = 0;
-      puntosTemp = c();
-      for(j in 2:limite_bucle){ #Saltamos la primera posicion ya que es la distancia con el mismo
-        sumatorio = sumatorio + columna[j];
-        for(k in 1:dim(distanciasOriginal)[1]){ #dim(distanciasOriginal)[1] -> numero de filas, es decir, numero de puntos
-          if(distanciasOriginal[k,i] == columna[j] && !is.element(k, puntosTemp)){
-            puntosTemp = c(puntosTemp,k); #Agnadimos el punto a los puntos usados para el punto i
+    print(cardinals);
+    #With the obtained cardinals, we get the densities of each point:
+    densities = c();
+    used_points = c(); #It is a structure of inputData to store the points that have been used for each
+    #point to calculate its density.
+    for (i in 1:dim(distances)[2]) {
+      column = distances[, i];
+      cardinal = cardinals[i];
+      loop_limit = cardinal + 1; #This way the loop goes up to cardinal inclusive
+      sum = 0;
+      tempPoints = c();
+      for (j in 2:loop_limit) { #We skip the first position since it is the distance with itself
+        sum = sum + column[j];
+        for (k in 1:dim(distancesOriginal)[1]) { #dim(distancesOriginal)[1] -> number of rows, that is, number of points
+          if (distancesOriginal[k, i] == column[j] && !is.element(k, tempPoints)) {
+            tempPoints = c(tempPoints, k); #We add the point to the points used for point i
           }
         }
       }
-      densidad = (sumatorio/cardinal)^(-1);
-      densidades = c(densidades,densidad);
-      puntos_usados = c(puntos_usados, list(puntosTemp));
+      density = (sum / cardinal)^(-1);
+      densities = c(densities, density);
+      used_points = c(used_points, list(tempPoints));
     }
-    #Con las densidades calculadas, vamos a calcular la densidad relativa media (drm) para cada uno de los puntos:
+    #With the calculated densities, we are going to calculate the average relative density (drm) for each point:
     drms = c();
-    for(i in 1:length(densidades)){
-      sumatorioDensidades = 0;
-      densidadPunto = densidades[i];
-      for(j in 1:length(puntos_usados[[i]])){
-        sumatorioDensidades = sumatorioDensidades + densidades[puntos_usados[[i]][[j]]];
+    for (i in 1:length(densities)) {
+      sum_densities = 0;
+      point_density = densities[i];
+      for (j in 1:length(used_points[[i]])) {
+        sum_densities = sum_densities + densities[used_points[[i]][[j]]];
       }
-      drm = densidadPunto/(sumatorioDensidades / cardinales[i]);
+      drm = point_density / (sum_densities / cardinals[i]);
       drms = c(drms, drm);
 
-      #TODO: esto es de forma temporal:
+      #TODO: this is temporary:
 
-      if(drm < threshold){
-        print("El punto");
+      if (drm < threshold) {
+        print("The point");
         print(i);
-        print("Es un outlier");
+        print("Is an outlier");
       }
     }
-  }else{
-    #Conversion a matriz si es un data frame:
-    if(is.data.frame(inputData)){
-      inputData = as.matrix(inputData);
-    }else{
-      stop("inputData must be a dataframe")
-    }
-    #Primero tenemos que calcular las distancias
-    distancias = c();
-    #euclideas entre cada uno de los puntos
-    for(i in 1:dim(inputData)[1]){ #dim(inputData)[1] es el numero de filas
-      #Punto sobre el que vamos a comparar:
-      puntoA = c(inputData[i,1],inputData[i,2]);
-      for(j in 1:dim(inputData)[1]){
-        #Punto sobre el que se compara puntoA
-        puntoB = c(inputData[j,1],inputData[j,2]);
-        distancias = c(distancias,manhattan_dist(puntoA,puntoB));
+  } else {
+    #First we have to calculate the distances
+    distances = c();
+    #Euclidean distances between each pair of points
+    for (i in 1:dim(inputData)[1]) {
+      #Point we are going to compare:
+      pointA = c(inputData[i, 1], inputData[i, 2]);
+      for (j in 1:dim(inputData)[1]) {
+        #Point to be compared with pointA
+        pointB = c(inputData[j, 1], inputData[j, 2]);
+        distances = c(distances, manhattan_dist(pointA, pointB));
       }
     }
-    distancias = matrix(distancias,dim(inputData)[1],dim(inputData)[1]);
-    distanciasOriginal = distancias; #Se utilizara mas adelante (lo necesitamos sin ordenar por columnas)
-    #Calculadas las distancias entre los puntos, calculamos el cardinal para cada punto.
-    #Para ello tenemos que ordenar la matriz de distancias (por columnas)
-    for(i in 1:dim(distancias)[2]){ #dim(inputData)[2] es el numero de columnas
-      distancias[,i] = sort(distancias[,i]);
+    distances = matrix(distances, dim(inputData)[1], dim(inputData)[1]);
+    distancesOriginal = distances; #Will be used later (we need it unsorted by columns)
+    #After calculating the distances between points, we calculate the cardinal for each point.
+    #To do this, we need to sort the distance matrix (by columns)
+    for (i in 1:dim(distances)[2]) {
+      distances[, i] = sort(distances[, i]);
     }
-    #Obtenemos un vector de los cardinales
-    cardinales = c();
-    for(i in 1:dim(distancias)[2]){
-      columna = distancias[,i];
-      #Llegamos hasta K (podria hacerse con un bucle pero asi es mas eficiente)
+    #We obtain a vector of the cardinals
+    cardinals = c();
+    for (i in 1:dim(distances)[2]) {
+      column = distances[, i];
+      #We reach up to K (could be done with a loop but this way is more efficient)
       pos = K;
-      #Comprobamos cuantos valores hay iguales al de la "posicion" K
-      while(columna[pos] == columna[pos+1]){
-        pos = pos+1;
+      #We check how many values are equal to the one at position K
+      while (column[pos] == column[pos + 1]) {
+        pos = pos + 1;
       }
-      #Los cardinales obtenidos tienen sumado un 1 ya que cuenta la distancia con el mismo
-      #Por ello le restamos 1
-      cardinales = c(cardinales,pos-1);
+      #The obtained cardinals have 1 added since they count the distance with itself
+      #So we subtract 1
+      cardinals = c(cardinals, pos - 1);
     }
-    #Con los cardinales obtenidos, obtenemos las densidades de cada punto:
-    densidades = c();
-    puntos_usados = c(); #Se trata de una estructura de inputData para almacenar los puntos que se han utilizado para cada
-    #uno de los puntos para calcular su densidad.
-    for(i in 1:dim(distancias)[2]){
-      columna = distancias[,i];
-      cardinal = cardinales[i];
-      limite_bucle = cardinal+1; #De esta manera el bucle llega hasta cardinal incluido
-      sumatorio = 0;
-      puntosTemp = c();
-      for(j in 2:limite_bucle){ #Saltamos la primera posicion ya que es la distancia con el mismo
-        sumatorio = sumatorio + columna[j];
-        for(k in 1:dim(distanciasOriginal)[1]){ #dim(distanciasOriginal)[1] -> numero de filas, es decir, numero de puntos
-          if(distanciasOriginal[k,i] == columna[j] && !is.element(k, puntosTemp)){
-            puntosTemp = c(puntosTemp,k); #Agnadimos el punto a los puntos usados para el punto i
+    #With the obtained cardinals, we get the densities of each point:
+    densities = c();
+    used_points = c(); #It is a structure of inputData to store the points that have been used for each
+    #point to calculate its density.
+    for (i in 1:dim(distances)[2]) {
+      column = distances[, i];
+      cardinal = cardinals[i];
+      loop_limit = cardinal + 1; #This way the loop goes up to cardinal inclusive
+      sum = 0;
+      tempPoints = c();
+      for (j in 2:loop_limit) { #We skip the first position since it is the distance with itself
+        sum = sum + column[j];
+        for (k in 1:dim(distancesOriginal)[1]) { #dim(distancesOriginal)[1] -> number of rows, that is, number of points
+          if (distancesOriginal[k, i] == column[j] && !is.element(k, tempPoints)) {
+            tempPoints = c(tempPoints, k); #We add the point to the points used for point i
           }
         }
       }
-      densidad = (sumatorio/cardinal)^(-1);
-      densidades = c(densidades,densidad);
-      puntos_usados = c(puntos_usados, list(puntosTemp));
+      density = (sum / cardinal)^(-1);
+      densities = c(densities, density);
+      used_points = c(used_points, list(tempPoints));
     }
-    #Con las densidades calculadas, vamos a calcular la densidad relativa media (drm) para cada uno de los puntos:
+    #With the calculated densities, we are going to calculate the average relative density (drm) for each point:
     drms = c();
-    for(i in 1:length(densidades)){
-      sumatorioDensidades = 0;
-      densidadPunto = densidades[i];
-      for(j in 1:length(puntos_usados[[i]])){
-        sumatorioDensidades = sumatorioDensidades + densidades[puntos_usados[[i]][[j]]];
+    for (i in 1:length(densities)) {
+      sum_densities = 0;
+      point_density = densities[i];
+      for (j in 1:length(used_points[[i]])) {
+        sum_densities = sum_densities + densities[used_points[[i]][[j]]];
       }
-      drm = densidadPunto/(sumatorioDensidades / cardinales[i]);
+      drm = point_density / (sum_densities / cardinals[i]);
       drms = c(drms, drm);
 
-      #TODO: esto es de forma temporal:
+      #TODO: this is temporary:
 
-      if(drm < threshold){
-        print("El punto");
+      if (drm < threshold) {
+        print("The point");
         print(i);
-        print("Es un outlier");
+        print("Is an outlier");
       }
     }
   }
