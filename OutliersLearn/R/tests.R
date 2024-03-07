@@ -5,4 +5,5 @@ inputData = data.frame(inputData)
 print(inputData)
 #inputData <- transform_to_vector(inputData)
 #print(inputData)
-knn(inputData,3,2,TRUE)
+#mahalanobis_method(inputData,0.2);
+DBSCAN_method(inputData, 1,2)
