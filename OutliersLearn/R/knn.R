@@ -9,6 +9,10 @@
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
 #' @examples
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
+#' inputData = data.frame(inputData)
+#' knn(inputData,3,2,FALSE)
+#' knn(inputData,1.5,2,TRUE)
 #'
 #' @export
 
@@ -46,7 +50,7 @@ knn <- function(data, d, K,tutorialMode){
         #point B:
         pointB = c(data[j,1],data[j,2]);
         distances = c(distances,euclidean_distance(pointA,pointB)); #We add the result to the distances vector
-        print(sprintf("Euclidean distance between point A (%.3f,%.3f) & point B (%.3f,%.3f): %.3f", pointA[1],pointA[2],pointB[1],pointB[2],euclidean_distance(pointA,pointB)))
+        print(sprintf("Euclidean distance between point %d (%.3f,%.3f) & point %d (%.3f,%.3f): %.3f", i, pointA[1],pointA[2], j, pointB[1],pointB[2],euclidean_distance(pointA,pointB)))
       }
     }
     distances = matrix(distances,dim(data)[1],dim(data)[1]); #We format the distance vector as a matrix
@@ -54,17 +58,22 @@ knn <- function(data, d, K,tutorialMode){
     print(distances)
 
     message("We order the distances by columns and show the outliers")
+    plot(1, type="n", main="Result", xlab="X Value", ylab="Y Value", xlim=c(0, length(data) + 1), ylim=range(data))
     for(i in 1:dim(distances)[2]){ #dim(data)[2] is the number of columns
       distances[,i] = sort(distances[,i]);
       message(sprintf("The distances matrix sorted in step %d is: ",i))
       print(distances)
       message(sprintf("The Kth neighbor for the point %d has a value of %.3f", i, distances[K,i]))
+      x = data[i,1]
+      y = data[i,2]
       if(distances[K,i] > d){
         message("The distance is greater than the value stablished in 'd' so it's an outlier.")
         message(sprintf("The point %d is an outlier", i))
+        points(x,y,col="red",pch=16)
       }else{
         message("The distance is smaller than the value stablished in 'd' so it's not an outlier.")
         message(sprintf("The point %d is not an outlier", i))
+        points(x,y,col="blue",pch=16)
       }
     }
   }else{ #Case tutorial mode deactivated
@@ -79,10 +88,16 @@ knn <- function(data, d, K,tutorialMode){
       }
     }
     distances = matrix(distances,dim(data)[1],dim(data)[1]); #We format the distance vector as a matrix
+    plot(1, type="n", main="Result", xlab="X Value", ylab="Y Value", xlim=c(0, length(data) + 1), ylim=range(data))
     for(i in 1:dim(distances)[2]){ #dim(data)[2] is the number of columns
       distances[,i] = sort(distances[,i]);
+      x = data[i,1]
+      y = data[i,2]
       if(distances[K,i] > d){
         message(sprintf("The point %d is an outlier", i))
+        points(x,y,col="red",pch=16)
+      }else{
+        points(x,y,col="blue",pch=16)
       }
     }
   }

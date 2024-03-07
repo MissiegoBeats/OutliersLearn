@@ -18,6 +18,13 @@ knn(data, d, K, tutorialMode)
 \description{
 This function implements the knn algorithm for outlier detection
 }
+\examples{
+inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
+inputData = data.frame(inputData)
+knn(inputData,3,2,FALSE)
+knn(inputData,1.5,2,TRUE)
+
+}
 \author{
 Andres Missiego Manjon
 }
