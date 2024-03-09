@@ -25,8 +25,7 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts){
   visited_array = numeric(nrow(inputData)); #0 means undefined. -1 means noise. >0 means cluster id
   clusters = c();
   for(i in 1:nrow(inputData)){
-
-    if(visited_array[i] == 0){
+    if(visited_array[i] != 0){
       next;
     }
 
@@ -46,38 +45,9 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts){
     }
 
     cluster_id = cluster_id + 1;
-    visited_array[i] = cluster_id;
-    j = 1;
-    while(j <= length(neighbors)){
-      if(j!=i){
-        if(visited_array[j] == -1){
-          visited_array[j] = cluster_id;
-        }
-        if(visited_array[j] == 0){
-          j = j+1;
-          next;
-        }
+    #expandCluster
+    #TODO: implement pseudocode of this: https://cse.buffalo.edu/~jing/cse601/fa13/materials/clustering_density.pdf
 
-        #Calculate the distance between this point (j) and the rest of the points. This is the
-        #equivalent to the RangeQuery() functionality
-        distances = c();
-        neighbors_aux = c();
-        for(k in 1:nrow(inputData)){
-          if(euclidean_distance(inputData[j,],inputData[k,]) <= max_distance_threshold){
-            neighbors_aux = c(neighbors_aux,k);
-          }
-        }
-
-        visited_array[j] = cluster_id;
-        if(length(neighbors) < min_pts){
-          j = j+1;
-          next;
-        }
-
-        neighbors = c(neighbors, neighbors_aux)
-        j = j+1;
-      }
-    }
   }
 
   for(i in 1:length(visited_array)){
