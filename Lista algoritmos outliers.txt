@@ -4,27 +4,31 @@ Hechos:
   Local Outlier Factor (LOF) -> Terminado
   Método de los Cuantiles -> hecho
   DBSCAN (Density-Based Spatial Clustering of Applications with Noise) -> Check issues
+  KNN -> terminado
 
 Preguntar:
   One-Class SVM (Support Vector Machine) -> preguntar un poco más sobre este algoritmo
   Isolation Forest -> lo veo complicado, lo dejo para el final. Así avanzo más.
+  Minimum Covariance Determinant (MCD) -> entrenar?
+
+Descartados:
+  HBOS (Histogram-Based Outlier Score) -> No se implementa por complejidad
 
 En proceso:
-  Minimum Covariance Determinant (MCD)
+
 
 No comenzados:
   Robust PCA (Principal Component Analysis)
   Elliptic Envelope
   Kernel Density Estimation (KDE)
   Angle-Based Outlier Detection (ABOD)
-  Histogram-Based Outlier Detection
   Autoencoders
-  K-Means Clustering -> Terminado
+  K-Means Clustering -> Terminado?
   Mean Shift Clustering
   Biclustering
   HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)
   LOCI (Local Correlation Integral)
-  HBOS (Histogram-Based Outlier Score)
+  Histogram-Based Outlier Detection
   CBLOF (Cluster-Based Local Outlier Factor)
   Feature Bagging
   COF (Connectivity-Based Outlier Factor)
