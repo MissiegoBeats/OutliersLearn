@@ -1,9 +1,11 @@
 pca_method <- function(data, tutorialMode){
   library(dplyr)
+  library(ggpubr)
+  library(MLmetrics)
   if(tutorialMode){
     #PCA calculation on the dataset
     pca <- prcomp(
-      x = data %>% select(-y),
+      x = data,
       center = TRUE,
       scale. = TRUE
     )
