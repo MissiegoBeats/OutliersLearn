@@ -8,4 +8,4 @@ inputData = data.frame(inputData)
 #inputData <- transform_to_vector(inputData)
 #print(inputData)
 #mahalanobis_method(inputData,0.2);
-DBSCAN_method(inputData,9,6)
+pca_method(inputData, TRUE);
