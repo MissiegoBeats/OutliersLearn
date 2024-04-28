@@ -33,15 +33,16 @@
 \title{Outliers Learn}
 
 \author{
-  \normalsize Author: Andrés Missiego Manjón \\
-  \normalsize Tutor: Juan José Cuadrado Gallego \\
+  \normalsize Author: Andr
+  \normalsize Tutor: Juan Jos
   \normalsize Degree: Degree in Informatics Engineering
 }
 
 \date{December 2023}
 
+\usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{OutliersLearn-concordance}
 \maketitle
 
 \begin{abstract}
@@ -184,15 +185,40 @@ As it has been said before, this function calculates the value of the quantile i
     \end{enumerate}
 \end{enumerate}
 Here is an example of execution of this function:
-<<>>=
-source("./code/quantile_outliersLearn.R")
-source("./code/transform_to_vector.R")
-(data = c(1,2,3,4,1,6,10,20))
-(q1 = quantile_outliersLearn(data, 0.25))
-(q2 = quantile_outliersLearn(data, 0.5))
-(q3 = quantile_outliersLearn(data, 0.75))
-(q = quantile_outliersLearn(c(12,2,3,4,1,13), 0.60))
-@
+\begin{Schunk}
+\begin{Sinput}
+> source("./code/quantile_outliersLearn.R")
+> source("./code/transform_to_vector.R")
+> (data = c(1,2,3,4,1,6,10,20))
+\end{Sinput}
+\begin{Soutput}
+[1]  1  2  3  4  1  6 10 20
+\end{Soutput}
+\begin{Sinput}
+> (q1 = quantile_outliersLearn(data, 0.25))
+\end{Sinput}
+\begin{Soutput}
+[1] 2
+\end{Soutput}
+\begin{Sinput}
+> (q2 = quantile_outliersLearn(data, 0.5))
+\end{Sinput}
+\begin{Soutput}
+[1] 4
+\end{Soutput}
+\begin{Sinput}
+> (q3 = quantile_outliersLearn(data, 0.75))
+\end{Sinput}
+\begin{Soutput}
+[1] 10
+\end{Soutput}
+\begin{Sinput}
+> (q = quantile_outliersLearn(c(12,2,3,4,1,13), 0.60))
+\end{Sinput}
+\begin{Soutput}
+[1] 4
+\end{Soutput}
+\end{Schunk}
 As it can be seen, this function also uses the transform\_to\_vector() function. This function is dedicated to the transformation of any type of data into a vector. The code is this but it won't be explained in detail due to the fact that is not that relevant to the "theory" behind the algorithm. It's more of a normalization function for data.
 \begin{lstlisting}[style=RStyle, caption="transform\_to\_vector code"]
 transform_to_vector <- function(data) {
@@ -261,75 +287,41 @@ The output of this algorithm includes a "text" output indicating the outliers ob
 \subsubsection{How to use this algorithm \& Examples of execution}
 \label{outliers:howtousebandw}
 As it has been mentioned earlier, the input parameters are: data, d and tutorialMode. This are some examples of calling the function boxandwhiskers() in R. This section is dedicated just to show how to call this function and some results obtained. Section \ref{outliers:explanationexecutionbandw} has a full explained execution of the algorithm showing how it works and an explanation of the results. Now the tutorialMode will be set to FALSE because of this. Here are 2 examples of code execution:
-<<>>=
-source("./code/boxandwhiskers.R")
-inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
-inputData = data.frame(inputData)
-boxandwhiskers(inputData,2,FALSE)
-@
+\begin{Schunk}
+\begin{Sinput}
+> source("./code/boxandwhiskers.R")
+> inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
+> inputData = data.frame(inputData)
+> boxandwhiskers(inputData,2,FALSE)
+\end{Sinput}
+\begin{Soutput}
+[1] "Obtained limits: "
+  d3   r6 
+-0.1 10.4 
+[1] "The value in position 7 with value 14.000 has been detected as an outlier"
+[1] "It was detected as an outlier because it's value is higher than the top limit 10.400"
+[1] "--------------------------------------------------------------------------------------------"
+[1] "The value in position 9 with value 12.000 has been detected as an outlier"
+[1] "It was detected as an outlier because it's value is higher than the top limit 10.400"
+[1] "--------------------------------------------------------------------------------------------"
+\end{Soutput}
+\end{Schunk}
 Another example:
-<<>>=
-boxandwhiskers(c(1,2,3,4,1,23,4),2,FALSE)
-@
+\begin{Schunk}
+\begin{Sinput}
+> boxandwhiskers(c(1,2,3,4,1,23,4),2,FALSE)
+\end{Sinput}
+\begin{Soutput}
+[1] "Obtained limits: "
+[1] -5 10
+[1] "The value in position 6 with value 23.000 has been detected as an outlier"
+[1] "It was detected as an outlier because it's value is higher than the top limit 10.000"
+[1] "--------------------------------------------------------------------------------------------"
+\end{Soutput}
+\end{Schunk}
 \subsubsection{Example of execution of this algorithm with result explanation}
 \label{outliers:explanationexecutionbandw}
 Here is the execution of the example shown in the section \ref{outliers:howtousebandw} but now with the tutorial mode activated (with the full explanation)
-<<>>=
-boxandwhiskers(c(1,2,3,4,1,23,4),2,TRUE)
-@
-
-\subsection{KNN}
-\subsubsection{Auxiliary functions used}
-\subsubsection{Pros and cons of this algorithm}
-\subsubsection{Algorithm parameters \& Output}
-\subsubsection{How to use this algorithm}
-\subsubsection{Example of execution of this algorithm}
-
-\subsection{LOF}
-\subsubsection{Auxiliary functions used}
-\subsubsection{Pros and cons of this algorithm}
-\subsubsection{Algorithm parameters \& Output}
-\subsubsection{How to use this algorithm}
-\subsubsection{Example of execution of this algorithm}
-
-\subsection{Mahalanobis Method}
-\subsubsection{Auxiliary functions used}
-\subsubsection{Pros and cons of this algorithm}
-\subsubsection{Algorithm parameters \& Output}
-\subsubsection{How to use this algorithm}
-\subsubsection{Example of execution of this algorithm}
-
-\subsection{Standard Deviation and Mean method}
-\subsubsection{Auxiliary functions used}
-\subsubsection{Pros and cons of this algorithm}
-\subsubsection{Algorithm parameters \& Output}
-\subsubsection{How to use this algorithm}
-\subsubsection{Example of execution of this algorithm}
-
-\subsection{DBSCAN}
-\subsubsection{Auxiliary functions used}
-\subsubsection{Pros and cons of this algorithm}
-\subsubsection{Algorithm parameters \& Output}
-\subsubsection{How to use this algorithm}
-\subsubsection{Example of execution of this algorithm}
-
-\subsection{How to install}
-\label{outliers:install}
-
-\section{Bibliography}
-\begin{itemize}
-    \item[\ref{intro:nytimes}] Gladwell, Malcolm. "Outliers." The New York Times, The New York Times, 28 Nov. 2008, \url{www.nytimes.com/2008/11/30/books/chapters/chapter-outliers.html}.
-
-    \item[\ref{outliers:definition}] NIST. "What Are Outliers in the Data?" 7.1.6. What Are Outliers in the Data?, \url{www.itl.nist.gov/}.
-
-    \item[\ref{fig:outliers_effect}] Altman, Naomi, and Martin Krzywinski. "Analyzing Outliers: Influential or Nuisance?" Nature News, Nature Publishing Group, 30 Mar. 2016, \url{www.nature.com/articles/nmeth.3812}.
-
-    \item[\ref{fig:box&whiskerslimitsexample}] (TODO), \newline
-    \url{https://medium.datadriveninvestor.com/statistical-analysis-part-1-box-and-whisker-plot-for-detecting-outliers-5a260f09cb01}
-\end{itemize}
-
-\section{Annex}
-\label{outliers:annex}
-\subsection{Box and Whiskers Implementation}
-
-\end{document}
+\begin{Schunk}
+\begin{Sinput}
+> boxandwhiskers(c(1,2,3,4,1,23,4),2,TRUE)
