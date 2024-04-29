@@ -8,4 +8,5 @@ inputData = data.frame(inputData)
 #inputData <- transform_to_vector(inputData)
 #print(inputData)
 #mahalanobis_method(inputData,0.2);
-pca_method(inputData, TRUE);
+#pca_method(inputData, TRUE);
+knn(inputData,3.5,3,FALSE);
