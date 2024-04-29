@@ -1,4 +1,4 @@
-#' sd_method
+#' z_score_method
 #'
 #' This function implements the outlier detection algorithm using standard deviation and mean
 #'
@@ -10,12 +10,12 @@
 #' @examples
 #' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
 #' inputData = data.frame(inputData)
-#' sd_method(inputData,2,TRUE)
+#' z_score_method(inputData,2,TRUE)
 #'
-#' sd_method(c(1,2,3,4,1,23,4),2,FALSE)
+#' z_score_method(c(1,2,3,4,1,23,4),2,FALSE)
 #'
 #' @export
-sd_method <- function(data, d, tutorialMode)
+z_score_method <- function(data, d, tutorialMode)
 {
   #TODO: comprobar si tendriamos que hacer source de las funciones que vamos a usar (en principio no)
 
@@ -50,18 +50,12 @@ sd_method <- function(data, d, tutorialMode)
 
     message("First we calculate the mean using the formula described before: ")
     #Mean calculation:
-    for(i in 1:length(data)){
-      sum = sum + data[i];
-    }
-    mean = sum/length(data);
+    mean = mean_outliersLearn(data);
     print(mean)
 
     message("Now we calculate the standard deviation using the formula described before:")
     #Standard deviation calculation:
-    for(i in 1:length(data)){
-      sumD = sumD + ((data[i]-mean)^2);
-    }
-    stddev = sqrt(sumD/length(data));
+    stddev = sd_outliersLearn(data);
     print(stddev)
 
     message("With those values calculated, we obtain the limits: ")
@@ -102,16 +96,10 @@ sd_method <- function(data, d, tutorialMode)
     sumD = 0; #Will be used to calculate the standard deviation
 
     #Mean calculation:
-    for(i in 1:length(data)){
-      sum = sum + data[i];
-    }
-    mean = sum/length(data);
+    mean = mean_outliersLearn(data);
 
     #Standard deviation calculation:
-    for(i in 1:length(data)){
-      sumD = sumD + ((data[i]-mean)^2);
-    }
-    stddev = sqrt(sumD/length(data));
+    stddev = sd_outliersLearn(data);
 
     #Calculate the limits:
     limits = c(mean - stddev * d, mean + stddev * d)
