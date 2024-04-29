@@ -15,7 +15,7 @@
 #' sd_method(c(1,2,3,4,1,23,4),2,FALSE)
 #'
 #' @export
-sd_method <- function(data, d, tutorialMode)
+z_score_method <- function(data, d, tutorialMode)
 {
   #TODO: comprobar si tendriamos que hacer source de las funciones que vamos a usar (en principio no)
 
