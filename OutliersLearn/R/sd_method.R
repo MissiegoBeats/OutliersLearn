@@ -50,18 +50,12 @@ sd_method <- function(data, d, tutorialMode)
 
     message("First we calculate the mean using the formula described before: ")
     #Mean calculation:
-    for(i in 1:length(data)){
-      sum = sum + data[i];
-    }
-    mean = sum/length(data);
+    mean = mean_outliersLearn(data);
     print(mean)
 
     message("Now we calculate the standard deviation using the formula described before:")
     #Standard deviation calculation:
-    for(i in 1:length(data)){
-      sumD = sumD + ((data[i]-mean)^2);
-    }
-    stddev = sqrt(sumD/length(data));
+    stddev = sd_outliersLearn(data);
     print(stddev)
 
     message("With those values calculated, we obtain the limits: ")
@@ -102,16 +96,10 @@ sd_method <- function(data, d, tutorialMode)
     sumD = 0; #Will be used to calculate the standard deviation
 
     #Mean calculation:
-    for(i in 1:length(data)){
-      sum = sum + data[i];
-    }
-    mean = sum/length(data);
+    mean = mean_outliersLearn(data);
 
     #Standard deviation calculation:
-    for(i in 1:length(data)){
-      sumD = sumD + ((data[i]-mean)^2);
-    }
-    stddev = sqrt(sumD/length(data));
+    stddev = sd_outliersLearn(data);
 
     #Calculate the limits:
     limits = c(mean - stddev * d, mean + stddev * d)
