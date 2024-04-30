@@ -41,9 +41,6 @@ z_score_method <- function(data, d, tutorialMode)
     message("\t5. Identification of outliers as values that fall outside the interval calculated in step 4.")
     message("Now that we know how to apply this algorithm, we are going to see how it works with the given data:")
     print(data)
-    #Declare the temp variables
-    sum = 0; #Will be used to calculate the mean
-    sumD = 0; #Will be used to calculate the standard deviation
 
     message("The degree of outlier selected ('d') selected is: ")
     print(d)
@@ -91,10 +88,6 @@ z_score_method <- function(data, d, tutorialMode)
     }
     message("The algorithm has ended")
   }else{
-    #Declare the temp variables
-    sum = 0; #Will be used to calculate the mean
-    sumD = 0; #Will be used to calculate the standard deviation
-
     #Mean calculation:
     mean = mean_outliersLearn(data);
 
