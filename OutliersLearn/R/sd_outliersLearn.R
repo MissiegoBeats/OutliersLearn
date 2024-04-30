@@ -1,5 +1,5 @@
 # TODO: documentation for this function
-sd_outliersLearn <- function(data){
+sd_outliersLearn <- function(data, mean){
   sumD = 0; #Will be used to calculate the standard deviation
   for(i in 1:length(data)){
     sumD = sumD + ((data[i]-mean)^2);

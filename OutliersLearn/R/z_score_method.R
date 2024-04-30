@@ -52,7 +52,7 @@ z_score_method <- function(data, d, tutorialMode)
 
     message("Now we calculate the standard deviation using the formula described before:")
     #Standard deviation calculation:
-    stddev = sd_outliersLearn(data);
+    stddev = sd_outliersLearn(data, mean);
     print(stddev)
 
     message("With those values calculated, we obtain the limits: ")
@@ -92,7 +92,7 @@ z_score_method <- function(data, d, tutorialMode)
     mean = mean_outliersLearn(data);
 
     #Standard deviation calculation:
-    stddev = sd_outliersLearn(data);
+    stddev = sd_outliersLearn(data, mean);
 
     #Calculate the limits:
     limits = c(mean - stddev * d, mean + stddev * d)
