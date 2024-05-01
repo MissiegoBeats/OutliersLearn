@@ -5,14 +5,14 @@
 #' @author Andres Missiego Manjon
 #' @param inputData Input Data (must be a data.frame)
 #' @param K
-#' @param threshold
+#' @param d
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
 #' @examples
 #'
 #' @export
 
-lof <- function(inputData, K, tutorialMode) {
+lof <- function(inputData, K, d, tutorialMode) {
 
   #Conversion to matrix if it is a data frame (this is common to both options)
   #and it's not relevant for the explanation
@@ -109,8 +109,8 @@ lof <- function(inputData, K, tutorialMode) {
 
     #With that calculated, we calculate the top and low limits of the ards so that every single point that has a ard out of
     #this limits is considered an outlier.
-    low_limit = mean - 2*sd;
-    top_limit = mean + 2*sd;
+    low_limit = mean - d*sd;
+    top_limit = mean + d*sd;
 
     for(i in 1:length(ards)){
       if(ards[i] < low_limit || ards[i] > top_limit){
@@ -192,8 +192,8 @@ lof <- function(inputData, K, tutorialMode) {
 
     #With that calculated, we calculate the top and low limits of the ards so that every single point that has a ard out of
     #this limits is considered an outlier.
-    low_limit = mean - 2*sd;
-    top_limit = mean + 2*sd;
+    low_limit = mean - d*sd;
+    top_limit = mean + d*sd;
 
     for(i in 1:length(ards)){
       if(ards[i] < low_limit || ards[i] > top_limit){
