@@ -40,7 +40,7 @@ lof <- function(inputData, K, d, tutorialMode) {
     message("\t\tIn the implementation of this algorithm (LOF simplified), it has been chosen to implement this last step using statistics: calculate the mean and the standard deviation of all the average relative densities to obtain this limits");
     message("\t\tThe limits are calculated using this equations: (meanArds - d*sdArds, meanArds + d*Ards)");
     message("\t\tWhen obtained the limits, check every single average relative density (ard) calculated. If the ard is inside the values of the limits, the value associated to that ard calculated is classified as an inlier. If outside of this limits then it will be classified as an outlier.");
-    message("\t\tThe value of "d" is completely arbitrary (chosen by the user). This value should be chosen carefully and taking into account the 'Chebyshev's Theorem to Interpret Standard Deviation'");
+    message("\t\tThe value of 'd' is completely arbitrary (chosen by the user). This value should be chosen carefully and taking into account the 'Chebyshev's Theorem to Interpret Standard Deviation'");
     message("Now that we understand how the algorithm works, it will be executed to the input data with the parameters that have been set");
 
     message("Calculate Euclidean distances between all points:");
@@ -49,16 +49,15 @@ lof <- function(inputData, K, d, tutorialMode) {
     #Euclidean distances between each pair of points
     for (i in 1:dim(inputData)[1]) {
       #Point we are going to compare:
-      message("\tCalculating distance between points:")
       pointA = c(inputData[i, 1], inputData[i, 2]);
-      print(pointA);
       for (j in 1:dim(inputData)[1]) {
         #Point to be compared with pointA
         pointB = c(inputData[j, 1], inputData[j, 2]);
-        print(pointB);
+        message("Calculating distance between points (manhattan distance):")
+        print(i);
+        print(j);
         distances = c(distances, manhattan_dist(pointA, pointB));
-        message("\tCalculated distance:");
-        print(manhattan_dist(pointA, pointB));
+        print(sprintf("Calculated distance: %.4f",manhattan_dist(pointA, pointB)));
       }
     }
     message("The calculated matrix of distances is:");
@@ -80,6 +79,7 @@ lof <- function(inputData, K, d, tutorialMode) {
       pos = K;
       #We check how many values are equal to the one at position K
       while (column[pos] == column[pos + 1]) {
+        print("Hola");
         pos = pos + 1;
       }
       #The obtained cardinals have 1 added since they count the distance with itself
@@ -151,12 +151,16 @@ lof <- function(inputData, K, d, tutorialMode) {
     print(sprintf("Top limit: %.4f", top_limit));
 
     message("Now we check every single point associated ard with the limits as it has been explained before");
+    plot(1, type="n", main="Result", xlab="X Value", ylab="Y Value", xlim=c(0, length(inputData) + 1), ylim=range(inputData));
     for(i in 1:length(ards)){
       if(ards[i] < low_limit || ards[i] > top_limit){
-        message(sprintf("The point %d is an outlier", i))
+        message(sprintf("The point %d is an outlier", i));
+        message(sprintf("The point %d has an average relative density of %.4f", i, ards[i]));
+        points(inputData[i,1],inputData[i,2],col="red",pch=16);
+      }else{
+        points(inputData[i,1],inputData[i,2],col="blue",pch=16);
       }
     }
-
   } else {
     #First we have to calculate the distances
     distances = c();
@@ -234,9 +238,13 @@ lof <- function(inputData, K, d, tutorialMode) {
     low_limit = mean - d*sd;
     top_limit = mean + d*sd;
 
+    plot(1, type="n", main="Result", xlab="X Value", ylab="Y Value", xlim=c(0, length(inputData) + 1), ylim=range(inputData));
     for(i in 1:length(ards)){
       if(ards[i] < low_limit || ards[i] > top_limit){
-        message(sprintf("The point %d is an outlier", i))
+        message(sprintf("The point %d is an outlier", i));
+        points(inputData[i,1],inputData[i,2],col="red",pch=16);
+      }else{
+        points(inputData[i,1],inputData[i,2],col="blue",pch=16);
       }
     }
   }
