@@ -5,14 +5,14 @@
 #' @author Andres Missiego Manjon
 #' @param inputData Input Data (must be a data.frame)
 #' @param K
-#' @param threshold
+#' @param d
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
 #' @examples
 #'
 #' @export
 
-lof <- function(inputData, K, threshold, tutorialMode) {
+lof <- function(inputData, K, d, tutorialMode) {
 
   #Conversion to matrix if it is a data frame (this is common to both options)
   #and it's not relevant for the explanation
@@ -25,7 +25,6 @@ lof <- function(inputData, K, threshold, tutorialMode) {
   if (tutorialMode) {#Case the user wants the full explanation
 
     #TODO: add theorical explanation & complete the explanation of the execution
-
 
     message("Calculate Euclidean distances between all points:")
     #First we have to calculate the distances
@@ -103,15 +102,22 @@ lof <- function(inputData, K, threshold, tutorialMode) {
       }
       ard = point_density / (sum_densities / cardinals[i]);
       ards = c(ards, ard);
+    }
+    #Now we calculate the the mean and the standard deviation of the calculated ards (average relative densities)
+    mean = mean_outliersLearn(ards);
+    sd = sd_outliersLearn(ards, mean);
 
-      #TODO: this is temporary (must be changed for another outlier average relative density related decision):
+    #With that calculated, we calculate the top and low limits of the ards so that every single point that has a ard out of
+    #this limits is considered an outlier.
+    low_limit = mean - d*sd;
+    top_limit = mean + d*sd;
 
-      if (ard < threshold) {
-        print("The point");
-        print(i);
-        print("Is an outlier");
+    for(i in 1:length(ards)){
+      if(ards[i] < low_limit || ards[i] > top_limit){
+        message(sprintf("The point %d is an outlier", i))
       }
     }
+
   } else {
     #First we have to calculate the distances
     distances = c();
@@ -178,15 +184,21 @@ lof <- function(inputData, K, threshold, tutorialMode) {
       }
       ard = point_density / (sum_densities / cardinals[i]);
       ards = c(ards, ard);
+    }
 
-      #TODO: this is temporary (must be changed for another outlier average relative density related decision):
+    #Now we calculate the the mean and the standard deviation of the calculated ards (average relative densities)
+    mean = mean_outliersLearn(ards);
+    sd = sd_outliersLearn(ards, mean);
 
-      if (ard < threshold) {
-        print("The point");
-        print(i);
-        print("Is an outlier");
+    #With that calculated, we calculate the top and low limits of the ards so that every single point that has a ard out of
+    #this limits is considered an outlier.
+    low_limit = mean - d*sd;
+    top_limit = mean + d*sd;
+
+    for(i in 1:length(ards)){
+      if(ards[i] < low_limit || ards[i] > top_limit){
+        message(sprintf("The point %d is an outlier", i))
       }
     }
   }
-
 }
