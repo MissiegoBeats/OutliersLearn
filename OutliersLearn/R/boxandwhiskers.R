@@ -29,7 +29,6 @@ boxandwhiskers <- function(data,d,tutorialMode){
     message("The algorithm is made up with 4 steps: ")
     message("\tStep 1: Determine the degree of outlier or distance at which an event is considered an outlier (arbitrary). We will name it 'd'")
     message("\tStep 2: Sort the data and obtain quartiles")
-    message("\tStep 3: Calculate the interval limits for outliers using the equation:")
     message("\t\t(Q_1 - d * (Q_3 - Q_1), Q_3 + d * (Q_3 - Q_1))")
     message("\tBeing Q_1 and Q_3 the 1st and 3rd quartile. Notice that here we use the value 'd' (it affects on the results so it must be carefully chosen)")
     message("\tStep 4: Identify outliers as values that fall outside the interval calculated in step 3")
