@@ -27,7 +27,7 @@ knn <- function(data, d, K,tutorialMode){
   if(tutorialMode){ #Case that tutorial mode is activated
     message("The tutorial mode has been activated for the KNN algorithm (outlier detection)")
     message("Before processing the data, we must understand the algorithm and the 'theory' behind it.")
-    message("The knn algorithm to detect outliers is a method based on proximity. This algoritm has 2 main steps:")
+    message("The knn algorithm to detect outliers is a method based on proximity. This algorithm has 2 main steps:")
     message("\tStep A: Determine the degree of outlier or distance at which an event is considered an outlier (arbitrary)")
     message("\t\tSubstep a: Arbitrarily determine the degree of outlier or distance at which an event is considered an outlier (we will name it 'd')")
     message("\t\tSubstep b: Arbitrarily determine the order number, or K, of the nearest neighbor for which an event must have a degree of outlier to be considered an outlier")
@@ -38,7 +38,7 @@ knn <- function(data, d, K,tutorialMode){
     message("We must define euclidean distance between 2 points (point A & point B for example). The formula is:")
     message("\tsqrt((B_x - A_x)^2 + (B_y-A_y)^2)")
     message("Being A_x and B_x the x components of the A and B points. A_y and B_y are the y components of the A and B points")
-    message("Now that we know how the algoritm works, let's apply it to our data.")
+    message("Now that we know how the algorithm works, let's apply it to our data.")
     message("")
     message("First we must calculate the euclidean distance between every single point in the data")
 
