@@ -15,8 +15,6 @@
 #'
 #' @export
 boxandwhiskers <- function(data,d,tutorialMode){
-  #TODO: comprobar si tendriamos que hacer source de las funciones que vamos a usar (en principio no)
-
   #Now we must preprocess the data to "standardize" it.
   #It's important to understand that we must transform N dimensional arrays to 1D arrays (e.g. to a vector)
   #because of the nature of this algorithm (it does not process multidimensional arrays)
