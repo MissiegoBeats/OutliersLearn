@@ -20,6 +20,8 @@ mahalanobis_method <- function(inputData, alpha){
     stop("inputData must be a dataframe")
   }
 
+  print(inputData);
+
   #Check alpha value:
   if(alpha <= 1){
 
@@ -37,22 +39,21 @@ mahalanobis_method <- function(inputData, alpha){
     print(covariance_matrix);
 
     #Calculate the mahalanobis distance matrix:
-    #TODO: this does not work (specifically the mahalanobis_distance function). Check if it has to be developed by my own
-    # mahalanobis_mat_vector = c();
-    # for(i in 1:nrow(inputData)){
-    #   for(j in 1:ncol(inputData)){
-    #     mahalanobis_mat_vector = c(mahalanobis_mat_vector, mahalanobis_distance(inputData[i,j], sampleMeans, covariance_matrix));
-    #   }
-    # }
-    # distances = matrix(distances,nrow(inputData),ncol(inputData)); #We format the distance vector as a matrix
-    # message("The distances matrix obtained is: ")
-    # print(distances)
-
+    mahalanobis_mat_vector = c();
+    for(i in 1:nrow(inputData)){
+      mahalanobis_mat_vector = c(mahalanobis_mat_vector, mahalanobis_distance(inputData[i,], sampleMeans, covariance_matrix));
+      print(mahalanobis_mat_vector);
+    }
+    distances = mahalanobis_mat_vector;
+    message("My mahalanobis distance vector: ");
+    print(distances);
     distances = mahalanobis(inputData, sampleMeans, covariance_matrix);
+    message("R own function mahalanobis(): ");
     print(distances);
 
     #Calculate the critical value
     num_dimensions = ncol(inputData);
+    message("Critical Value: ")
     critical_value <- qchisq(1 - alpha, num_dimensions); #To calculate the critical value
     print(critical_value);
 
