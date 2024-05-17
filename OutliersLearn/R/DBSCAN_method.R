@@ -3,19 +3,25 @@
 #' Outlier detection method using DBSCAN
 #'
 #' @param inputData Input Data (must be a data.frame)
-#' @param max_distance_threshold
-#' @param min_pts
+#' @param max_distance_threshold This is used to calculate the distance between all the points and check if the euclidean distance is less than the max_distance_threshold parameter to decide if add it to the neighbors or not
+#' @param min_pts the minimum number of points to form a dense region
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
 #' @examples
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+#' inputData = data.frame(inputData);
+#' plot(inputData);
+#' eps = 4;
+#' min_pts = 3;
+#' DBSCAN_method(inputData, eps, min_pts, FALSE);
+#'
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+#' inputData = data.frame(inputData);
+#' DBSCAN_method(inputData, 4, 3, TRUE);
 #'
 #' @export
 
 DBSCAN_method <- function(inputData, max_distance_threshold, min_pts, tutorialMode){
-  #Algorithm pseudocode:
-  #https://www.researchgate.net/figure/Pseudocode-of-DBSCAN-Algorithm-28_fig2_339165857
-  #https://cse.buffalo.edu/~jing/cse601/fa13/materials/clustering_density.pdf
-
   #Conversion to matrix if it is a data frame (this is common to both options)
   #and it's not relevant for the explanation
   if (is.data.frame(inputData)) {
@@ -59,7 +65,7 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts, tutorialMo
       distances = c();
       neighbors = c();
       for(j in 1:nrow(inputData)){
-        message("Checking if the euclidean distance is less then the max_distance_threshold");
+        message("Checking if the euclidean distance is less than the max_distance_threshold");
         if(euclidean_distance(inputData[i,],inputData[j,]) <= max_distance_threshold){
           print("Smaller, adding to neighbors");
           neighbors = c(neighbors,j);
@@ -71,7 +77,7 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts, tutorialMo
       print(neighbors);
       message("Is length of neighbors smaller than min_pts?")
       if(length(neighbors) < min_pts){
-        print(sprintf("It's smaller, classifing the point %d as an outlier and skipping to next point",i));
+        print(sprintf("It's smaller, classifying the point %d as an outlier and skipping to next point",i));
         visited_array[i] = -1;
         message("------------------------------------------------------")
         next;
@@ -84,7 +90,7 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts, tutorialMo
       print(sprintf("Adding point %d to cluster %d", i, cluster_id));
       clusters[i] = cluster_id; #Add P to cluster C
       for(j in 1:length(neighbors)){ #if neighbor is not visited
-        print("Cheking every single neighbor for the point");
+        print("Checking every single neighbor for the point");
         if(visited_array[neighbors[j]] != 0){
           print(sprintf("Neighbor %d has already been visited.", neighbors[j]));
           visited_array[neighbors[j]] = 1; #mark as visited
@@ -113,6 +119,7 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts, tutorialMo
         message(sprintf("The point %d is an outlier", i))
       }
     }
+    message("The algorithm has ended")
   }else{
     #Create the necessary data structures for the algorithm
     cluster_id = 0;
@@ -140,9 +147,6 @@ DBSCAN_method <- function(inputData, max_distance_threshold, min_pts, tutorialMo
 
       cluster_id = cluster_id + 1;
       #expandCluster
-      #Pseudocode implementation of this: https://cse.buffalo.edu/~jing/cse601/fa13/materials/clustering_density.pdf
-      print(neighbors);
-      print(visited_array);
       clusters[i] = cluster_id; #Add P to cluster C
       for(j in 1:length(neighbors)){ #if neighbor is not visited
         if(visited_array[neighbors[j]] != 0){
