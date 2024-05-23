@@ -12,18 +12,22 @@
 #'
 #'@export
 mahalanobis_distance <- function(value, sample_mean, sample_covariance_matrix) {
-  print(value);
+  # Ensure value and sample_mean are vectors
+  value <- as.matrix(value)
+  sample_mean <- as.matrix(sample_mean)
+
+  if (ncol(value) != ncol(sample_mean)) {
+    stop("Dimensions of value and sample_mean do not match")
+  }
+
   # Calculate the difference vector
   diff_vector <- value - sample_mean
-
-  # Calculate the transposed difference vector
-  transposed_diff_vector <- t(diff_vector)
 
   # Calculate the inverse of the covariance matrix
   inverted_covariance_matrix <- solve(sample_covariance_matrix)
 
   # Calculate the Mahalanobis distance
-  mahalanobis_dist <- sqrt(transposed_diff_vector %*% inverted_covariance_matrix %*% diff_vector)
+  mahalanobis_dist <- sqrt(t(diff_vector) %*% inverted_covariance_matrix %*% diff_vector)
 
-  return(mahalanobis_dist)
+  return(as.numeric(mahalanobis_dist))
 }

@@ -7,10 +7,15 @@
 #inputData <- transform_to_vector(inputData)
 #print(inputData)
 #knn(inputData,3.5,3,TRUE);
-#pca_method(inputData, TRUE);
 #z_score_method(inputData,2,TRUE);
 
 inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
 inputData = data.frame(inputData);
-DBSCAN_method(inputData, 4, 3, TRUE);
+mahalanobis_method(inputData, 0.2, TRUE);
 
+inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+inputData = data.frame(inputData);
+mahalanobis_method(inputData, 0.7, FALSE);
+
+#lof(inputData, 2, 2, FALSE);
+#DBSCAN_method(inputData, 4, 3, TRUE);
