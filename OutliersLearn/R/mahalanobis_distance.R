@@ -8,8 +8,6 @@
 #'
 #'@return Mahalanobis distance associated to the point
 #'
-#'@examples
-#'
 #'@export
 mahalanobis_distance <- function(value, sample_mean, sample_covariance_matrix) {
   # Ensure value and sample_mean are vectors
