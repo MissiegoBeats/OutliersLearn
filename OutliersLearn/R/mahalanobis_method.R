@@ -3,8 +3,8 @@
 #'Detect outliers using the Mahalanobis Distance
 #'
 #'@author Andres Missiego Manjon
-#'@param inputData Input Data dataset
-#'@param alpha Significance level alpha
+#'@param inputData Input Data dataset that will be processed (with or not the step by step explanation) to obtain the underlying outliers. It must be a data.frame type.
+#'@param alpha Significance level alpha. This value indicates the proportion that it is expected to be outliers out of the dataset. It has to be in the range from 0 to 1
 #'@param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'@examples
 #'inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
@@ -30,8 +30,8 @@ mahalanobis_method <- function(inputData, alpha, tutorialMode){
     message("Before processing the data, we must understand the algorithm and the 'theory' behind it.");
     message("The algorithm is made up with 6 steps: ");
 
-    message("\t1)Check if the input value 'alpha' is smaller or equal to 1.");
-    message("\t\tIf this is true, then continue to the next step. If the value is greater than 1, end the algorithm.");
+    message("\t1)Check if the input value 'alpha' is in the desired range");
+    message("\t\tIf this is true (between 0 and 1), then continue to the next step. If the value is greater than 1 or smaller than 0, end the algorithm.");
     message("\t\tThe concept of the input parameter alpha is the proportion of observations used for the estimation of the critical value (distance value calculated with a chi-squared distribution using alpha)");
 
     message("\t2)Calculate the mean for each column of the dataset.");
@@ -69,7 +69,7 @@ mahalanobis_method <- function(inputData, alpha, tutorialMode){
 
     message("Check if the input value alpha is smaller or equal to 1.");
     message("If this is true, then continue to the next step. If the value is greater than 1, end the algorithm.");
-    if(alpha <= 1){
+    if(alpha <= 1 && alpha >= 0){
       # Calculate the sample mean for each variable and store it in an array:
       message("Calculate the mean for each column of the dataset.")
       sampleMeans = c();
@@ -132,7 +132,7 @@ mahalanobis_method <- function(inputData, alpha, tutorialMode){
 
   }else{
     #Check alpha value:
-    if(alpha <= 1){
+    if(alpha <= 1 && alpha >= 0){
 
       #Calculate the sample mean for each variable and store it in an array:
       sampleMeans = c();
