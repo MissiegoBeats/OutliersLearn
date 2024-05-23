@@ -126,10 +126,8 @@ mahalanobis_method <- function(inputData, alpha, tutorialMode){
       }
       message("The algorithm has ended");
     }else{
-      stop("Alpha can't be higher than 1");
+      stop("Alpha can't be higher than 1 or smaller than 0");
     }
-
-
   }else{
     #Check alpha value:
     if(alpha <= 1 && alpha >= 0){
@@ -169,7 +167,7 @@ mahalanobis_method <- function(inputData, alpha, tutorialMode){
         }
       }
     }else{
-      stop("Alpha can't be higher than 1");
+      stop("Alpha can't be higher than 1 or smaller than 0");
     }
   }
 }
