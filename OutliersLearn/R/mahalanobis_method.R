@@ -1,6 +1,6 @@
-#'mahalanobis_distance
+#'mahalanobis_method
 #'
-#'Detect outliers using the Mahalanobis Distance
+#'Detect outliers using the Mahalanobis Distance method
 #'
 #'@author Andres Missiego Manjon
 #'@param inputData Input Data dataset that will be processed (with or not the step by step explanation) to obtain the underlying outliers. It must be a data.frame type.
