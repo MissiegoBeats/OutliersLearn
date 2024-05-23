@@ -2,19 +2,19 @@
 % Please edit documentation in R/mahalanobis_method.R
 \name{mahalanobis_method}
 \alias{mahalanobis_method}
-\title{mahalanobis_distance}
+\title{mahalanobis_method}
 \usage{
 mahalanobis_method(inputData, alpha, tutorialMode)
 }
 \arguments{
-\item{inputData}{Input Data dataset}
+\item{inputData}{Input Data dataset that will be processed (with or not the step by step explanation) to obtain the underlying outliers. It must be a data.frame type.}
 
-\item{alpha}{Significance level alpha}
+\item{alpha}{Significance level alpha. This value indicates the proportion that it is expected to be outliers out of the dataset. It has to be in the range from 0 to 1}
 
 \item{tutorialMode}{if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)}
 }
 \description{
-Detect outliers using the Mahalanobis Distance
+Detect outliers using the Mahalanobis Distance method
 }
 \examples{
 inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
