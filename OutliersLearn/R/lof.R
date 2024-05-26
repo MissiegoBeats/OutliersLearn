@@ -5,14 +5,21 @@
 #' @author Andres Missiego Manjon
 #' @param inputData Input Data (must be a data.frame)
 #' @param K This number represents the nearest neighbor to use to calculate the density of each point. This value is chosen arbitrarily and is responsibility of the data scientist/user to select a number adequate to the dataset.
-#' @param d degree of outlier, this value is multiplied by the standard deviation and added/subtracted to the mean to obtain the limit values as it has been explained earlier in this section. This value is chosen arbitrarily and is responsibility of the data scientist/user to select a number adequate to the dataset.
+#' @param threshold Value that is used to classify the points comparing it to the calculated ARDs of the points in the dataset. If the ARD is smaller, the point is classified as an outliers. If not, the point is classified as a normal point (inlier)
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
 #' @examples
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+#' inputData = data.frame(inputData);
+#' lof(inputData, 3, 0.3, TRUE);
+#'
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+#' inputData = data.frame(inputData);
+#' lof(inputData, 3, 0.5, FALSE);
 #'
 #' @export
 
-lof <- function(inputData, K, d, tutorialMode) {
+lof <- function(inputData, K, threshold, tutorialMode) {
 
   #Conversion to matrix if it is a data frame (this is common to both options)
   #and it's not relevant for the explanation
@@ -37,12 +44,10 @@ lof <- function(inputData, K, d, tutorialMode) {
     message("\t\tard*italic(x[i], K) == frac(density*italic(x[i], K), frac(sum(italic(x[j]) %in% N(italic(x[i], K)), density*italic(x[j], K)), cardinalN(italic(x[i], K))))");
     message("\t\tThis calculates the proportion between a point and the average mean of the densities of the set N that defines that point using the order number K. The average distance will tend to 0 on the outliers.")
     message("\t3)	Obtain the outliers: will classify a point as an outlier when the average relative density is significantly smaller than the rest of the elements in the sample");
-    message("\t\tIn the implementation of this algorithm (LOF simplified), it has been chosen to implement this last step using statistics: calculate the mean and the standard deviation of all the average relative densities to obtain this limits");
-    message("\t\tThe limits are calculated using this equations: (meanArds - d*sdArds, meanArds + d*Ards)");
-    message("\t\tWhen obtained the limits, check every single average relative density (ard) calculated. If the ard is inside the values of the limits, the value associated to that ard calculated is classified as an inlier. If outside of this limits then it will be classified as an outlier.");
-    message("\t\tThe value of 'd' is completely arbitrary (chosen by the user). This value should be chosen carefully and taking into account the 'Chebyshev's Theorem to Interpret Standard Deviation'");
+    message("\t\t In the current LOF simplified implemented algorithm, it has been chosen to implement this last step with a threshold specified by the user");
+    message("\t\t This threshold value is compared to each ARD calculated for each point. If the value is smaller than the threshold, then the point is classified as an outlier");
+    message("\t\t On the other hand, if the value is greater or equal to the threshold, the point is classified as an  inlier (a normal point)")
     message("Now that we understand how the algorithm works, it will be executed to the input data with the parameters that have been set");
-
     message("Calculate Euclidean distances between all points:");
     #First we have to calculate the distances
     distances = c();
@@ -138,23 +143,12 @@ lof <- function(inputData, K, d, tutorialMode) {
     message("All the ards calculated: ");
     print(ards);
 
-    message("Now we calculate the the mean and the standard deviation of the calculated ards (average relative densities)");
-    mean = mean_outliersLearn(ards);
-    sd = sd_outliersLearn(ards, mean);
-    print(sprintf("Mean: %.4f", mean));
-    print(sprintf("Standard Deviation: %.4f", sd));
-
-    message("With that calculated, we calculate the top and low limits of the ards so that every single point that has a ard out of this limits is considered an outlier.");
-    low_limit = mean - d*sd;
-    top_limit = mean + d*sd;
-    print(sprintf("Low limit: %.4f", low_limit));
-    print(sprintf("Top limit: %.4f", top_limit));
-
-    message("Now we check every single point associated ard with the limits as it has been explained before");
+    message("The last step is to classify the outliers comparing the ards calculated with the threshold");
+    print(sprintf("Threshold selected: %f", threshold))
     plot(1, type="n", main="Result", xlab="X Value", ylab="Y Value", xlim=c(0, length(inputData) + 1), ylim=range(inputData));
     for(i in 1:length(ards)){
-      if(ards[i] < low_limit || ards[i] > top_limit){
-        message(sprintf("The point %d is an outlier", i));
+      if(ards[i] < threshold){
+        message(sprintf("The point %d is an outlier because its ard is lower than %f", i, threshold));
         message(sprintf("The point %d has an average relative density of %.4f", i, ards[i]));
         points(inputData[i,1],inputData[i,2],col="red",pch=16);
       }else{
@@ -229,19 +223,13 @@ lof <- function(inputData, K, d, tutorialMode) {
       ards = c(ards, ard);
     }
 
-    #Now we calculate the the mean and the standard deviation of the calculated ards (average relative densities)
-    mean = mean_outliersLearn(ards);
-    sd = sd_outliersLearn(ards, mean);
-
-    #With that calculated, we calculate the top and low limits of the ards so that every single point that has a ard out of
-    #this limits is considered an outlier.
-    low_limit = mean - d*sd;
-    top_limit = mean + d*sd;
-
+    #Classify the points comparing with the threshold
+    print(sprintf("Threshold selected: %f", threshold))
     plot(1, type="n", main="Result", xlab="X Value", ylab="Y Value", xlim=c(0, length(inputData) + 1), ylim=range(inputData));
     for(i in 1:length(ards)){
-      if(ards[i] < low_limit || ards[i] > top_limit){
-        message(sprintf("The point %d is an outlier", i));
+      if(ards[i] < threshold){
+        message(sprintf("The point %d is an outlier because its ard is lower than %f", i, threshold));
+        message(sprintf("The point %d has an average relative density of %.4f", i, ards[i]));
         points(inputData[i,1],inputData[i,2],col="red",pch=16);
       }else{
         points(inputData[i,1],inputData[i,2],col="blue",pch=16);
