@@ -7,7 +7,7 @@
 z_score_method(data, d, tutorialMode)
 }
 \arguments{
-\item{data}{Input Data}
+\item{data}{Input Data that will be processed with or without the tutorial mode activated}
 
 \item{d}{Degree of outlier or distance at which an event is considered an outlier}
 

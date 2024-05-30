@@ -24,6 +24,7 @@ q2 = quantile(data, 0.5)
 q3 = quantile(data, 0.75)
 
 q = quantile(c(12,2,3,4,1,13), 0.60)
+
 }
 \author{
 Andres Missiego Manjon

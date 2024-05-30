@@ -11,6 +11,9 @@ euclidean_distance(p1, p2)
 
 \item{p2}{The other point that will be used by the algorithm with N dimensions}
 }
+\value{
+Euclidean Distance calculated between the two N-dimensional points
+}
 \description{
 This function calculates the euclidean distance between 2 points. They must have the same number of dimensions
 }
