@@ -31,3 +31,6 @@ inputData = data.frame(inputData);
 DBSCAN_method(inputData, 4, 3, TRUE);
 
 }
+\author{
+Andres Missiego Manjon
+}

@@ -4,19 +4,29 @@
 \alias{lof}
 \title{lof}
 \usage{
-lof(inputData, K, d, tutorialMode)
+lof(inputData, K, threshold, tutorialMode)
 }
 \arguments{
 \item{inputData}{Input Data (must be a data.frame)}
 
 \item{K}{This number represents the nearest neighbor to use to calculate the density of each point. This value is chosen arbitrarily and is responsibility of the data scientist/user to select a number adequate to the dataset.}
 
-\item{d}{degree of outlier, this value is multiplied by the standard deviation and added/subtracted to the mean to obtain the limit values as it has been explained earlier in this section. This value is chosen arbitrarily and is responsibility of the data scientist/user to select a number adequate to the dataset.}
+\item{threshold}{Value that is used to classify the points comparing it to the calculated ARDs of the points in the dataset. If the ARD is smaller, the point is classified as an outliers. If not, the point is classified as a normal point (inlier)}
 
 \item{tutorialMode}{if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)}
 }
 \description{
 Local Outlier Factor algorithm to detect outliers
+}
+\examples{
+inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+inputData = data.frame(inputData);
+lof(inputData, 3, 0.3, TRUE);
+
+inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+inputData = data.frame(inputData);
+lof(inputData, 3, 0.5, FALSE);
+
 }
 \author{
 Andres Missiego Manjon
