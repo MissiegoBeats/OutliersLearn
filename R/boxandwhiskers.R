@@ -14,6 +14,7 @@
 #' boxandwhiskers(c(1,2,3,4,1,23,4),2,FALSE)
 #'
 #' @export
+
 boxandwhiskers <- function(data,d,tutorialMode){
   #Now we must preprocess the data to "standardize" it.
   #It's important to understand that we must transform N dimensional arrays to 1D arrays (e.g. to a vector)

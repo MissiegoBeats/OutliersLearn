@@ -2,6 +2,7 @@
 #'
 #' Outlier detection method using DBSCAN
 #'
+#' @author Andres Missiego Manjon
 #' @param inputData Input Data (must be a data.frame)
 #' @param max_distance_threshold This is used to calculate the distance between all the points and check if the euclidean distance is less than the max_distance_threshold parameter to decide if add it to the neighbors or not
 #' @param min_pts the minimum number of points to form a dense region
