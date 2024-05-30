@@ -1,21 +1,21 @@
-#'mahalanobis_method
+#' mahalanobis_method
 #'
-#'Detect outliers using the Mahalanobis Distance method
+#' Detect outliers using the Mahalanobis Distance method
 #'
-#'@author Andres Missiego Manjon
-#'@param inputData Input Data dataset that will be processed (with or not the step by step explanation) to obtain the underlying outliers. It must be a data.frame type.
-#'@param alpha Significance level alpha. This value indicates the proportion that it is expected to be outliers out of the dataset. It has to be in the range from 0 to 1
-#'@param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
-#'@examples
-#'inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
-#'inputData = data.frame(inputData);
-#'mahalanobis_method(inputData, 0.7, FALSE);
+#' @author Andres Missiego Manjon
+#' @param inputData Input Data dataset that will be processed (with or not the step by step explanation) to obtain the underlying outliers. It must be a data.frame type.
+#' @param alpha Significance level alpha. This value indicates the proportion that it is expected to be outliers out of the dataset. It has to be in the range from 0 to 1
+#' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
+#' @examples
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+#' inputData = data.frame(inputData);
+#' mahalanobis_method(inputData, 0.7, FALSE);
 #'
-#'inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
-#'inputData = data.frame(inputData);
-#'mahalanobis_method(inputData, 0.2, TRUE);
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+#' inputData = data.frame(inputData);
+#' mahalanobis_method(inputData, 0.2, TRUE);
 #'
-#'@export
+#' @export
 
 mahalanobis_method <- function(inputData, alpha, tutorialMode){
   #Conversion to matrix if it is a data frame (this is common to both options)
