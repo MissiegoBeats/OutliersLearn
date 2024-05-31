@@ -3,7 +3,7 @@ Type: Package
 Title: Educational Outlier package with some common outlier detection algorithms.
 Version: 0.0.1
 Author: Andrés Missiego Manjón
-Maintainer: Andrés Missiego Manjón <a.missiego@edu.uah.es>
+Maintainer: Andres Missiego Manjon <a.missiego@edu.uah.es>
 Description: This package is dedicated to some of the most important outlier detection
     algorithms. These algorithms include a tutorial mode option that will show a description
     of the algorithm and a step by step execution explanation of how it's obtaining the 
