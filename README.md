@@ -89,6 +89,7 @@ library(OutliersLearn)
 See more about them using the command `help()`
 
 ## Licence
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Contact me
 If there is any question, feel free to open a new issue with the "question" label. If needed, i'll add a Q&A section in the repository issues
