@@ -10,11 +10,6 @@
 #' @return Quantile v calculated
 #'
 #' @examples
-#' data = c(1,2,3,4,1,6,10,20)
-#' q1 = quantile(data, 0.25)
-#' q2 = quantile(data, 0.5)
-#' q3 = quantile(data, 0.75)
-#'
 #' q = quantile(c(12,2,3,4,1,13), 0.60)
 #'
 #' @export

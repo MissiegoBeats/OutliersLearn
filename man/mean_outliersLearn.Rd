@@ -16,12 +16,7 @@ Mean of the input data
 Calculates the mean of the given data vector
 }
 \examples{
-inputData = c(1,2,3,4,5,6,1);
-mean = mean_outliersLearn(inputData);
-print(mean);
-
 mean = mean_outliersLearn(c(2,3,2.3,7.8));
-print(mean);
 
 }
 \author{

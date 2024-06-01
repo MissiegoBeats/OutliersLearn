@@ -7,11 +7,11 @@
 mahalanobis_distance(value, sample_mean, sample_covariance_matrix)
 }
 \arguments{
+\item{value}{Point to calculate the mahalanobis_distance}
+
 \item{sample_mean}{Sample mean}
 
 \item{sample_covariance_matrix}{Sample Covariance Matrix}
-
-\item{point}{Point to calculate the mahalanobis_distance}
 }
 \value{
 Mahalanobis distance associated to the point
@@ -32,7 +32,6 @@ for(i in 1:ncol(inputData)){
 }
 covariance_matrix = cov(inputData);
 distance = mahalanobis_distance(inputData[3,], sampleMeans, covariance_matrix);
-print(distance);
 
 }
 \author{

@@ -15,10 +15,6 @@
 #' point1 = inputData[1,];
 #' point2 = inputData[4,];
 #' distance = euclidean_distance(point1, point2);
-#' print(distance)
-#'
-#' distance = euclidean_distance(c(1,2,3.4,1.2,7), c(3,2.1,3,5.6,12));
-#' print(distance)
 #'
 #' @export
 

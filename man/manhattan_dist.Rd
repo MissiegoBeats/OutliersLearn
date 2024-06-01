@@ -18,13 +18,7 @@ Manhattan distance calculated between point A and B
 Calculates the manhattan distance between two 2D points
 }
 \examples{
-inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
-inputData = as.matrix(inputData);
-distance = manhattan_dist(inputData[3,], inputData[4,]);
-print(distance);
-
 distance = manhattan_dist(c(1,2), c(3,4));
-print(distance);
 
 }
 \author{
