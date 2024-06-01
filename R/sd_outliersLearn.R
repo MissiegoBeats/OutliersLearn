@@ -11,9 +11,8 @@
 #'
 #' @examples
 #' inputData = c(1,2,3,4,5,6,1);
-#' mean = mean_outliersLearn(inputData);
+#' mean = sum(inputData)/length(inputData);
 #' sd = sd_outliersLearn(inputData, mean);
-#' print(sd);
 #'
 #' @export
 

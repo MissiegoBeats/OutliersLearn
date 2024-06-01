@@ -1,14 +1,14 @@
 Package: OutliersLearn
 Type: Package
-Title: Educational Outlier package with some common outlier detection algorithms.
-Version: 0.0.2
+Title: Educational Outlier package with some common outlier detection algorithms
+Version: 1.0.0
 Author: Andres Missiego Manjon
 Maintainer: Andres Missiego Manjon <a.missiego@edu.uah.es>
-Description: This package is dedicated to some of the most important outlier detection
+Description: Outliers Learn is dedicated to some of the most important outlier detection
     algorithms. These algorithms include a tutorial mode option that will show a description
     of the algorithm and a step by step execution explanation of how it's obtaining the 
     outliers of the given data (with the given input parameters, specific of each method)
-License: MIT License
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

@@ -3,7 +3,7 @@
 #' Calculates the mahalanobis_distance given the input data
 #'
 #' @author Andres Missiego Manjon
-#' @param point Point to calculate the mahalanobis_distance
+#' @param value Point to calculate the mahalanobis_distance
 #' @param sample_mean Sample mean
 #' @param sample_covariance_matrix Sample Covariance Matrix
 #'
@@ -22,7 +22,6 @@
 #' }
 #' covariance_matrix = cov(inputData);
 #' distance = mahalanobis_distance(inputData[3,], sampleMeans, covariance_matrix);
-#' print(distance);
 #'
 #' @export
 
