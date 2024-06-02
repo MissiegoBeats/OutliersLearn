@@ -82,7 +82,6 @@ lof <- function(inputData, K, threshold, tutorialMode) {
       pos = K;
       #We check how many values are equal to the one at position K
       while (column[pos] == column[pos + 1]) {
-        print("Hola");
         pos = pos + 1;
       }
       #The obtained cardinals have 1 added since they count the distance with itself
