@@ -1,0 +1,236 @@
+---
+title: "Outliers Learn"
+author: "Andres Missiego Manjon"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(OutliersLearn);
+```
+
+The Outliers Learn R package allows users to learn how the outlier detection algorithms work.
+
+1. The package includes the main functions that have the implementation of the algorithm
+2. The package also includes some auxiliary functions used in the main functions that can also be used separately
+3. The main functions include a tutorial mode parameter that allows the user to choose if wanted to see the description and a step by step explanation on how the algorithm works.
+
+## Datasets
+
+In the following examples of use, most of these examples will always use the same dataset. This dataset is declared as inputData:
+
+```{r, echo=TRUE}
+inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))));
+inputData = data.frame(inputData);
+print(inputData);
+```
+
+As it can be seen, this is a bidimensional matrix (data.frame) that has 7 rows. It can be seen more graphically like this:
+```{r, echo=TRUE}
+plot(inputData);
+```
+
+With that being said, the following section will be dedicated to "how to execute" the auxiliary functions. 
+
+## Auxiliary functions
+
+In this section, it will be shown how to call the auxiliary functions of the Outliers Learn R package. This includes:
+
+- Distance functions
+  - `euclidean_distance()`
+  - `mahalanobis_distance()`
+  - `manhattan_dist()`
+- Statistical Functions
+  - `mean_outliersLearn()`
+  - `sd_outliersLearn()`
+  - `quantile_outliersLearn()`
+- Data transforming functions
+  - `transform_to_vector()`
+
+First, the distance functions:
+
+- Euclidean Distance (`euclidean_distance()`)
+```{r, echo=TRUE}
+point1 = inputData[1,];
+point2 = inputData[4,];
+distance = euclidean_distance(point1, point2);
+print(distance);
+```
+
+- Mahalanobis Distance (`mahalanobis_distance()`)
+```{r, echo=TRUE}
+inputDataMatrix = as.matrix(inputData); #Required conversion for this function
+sampleMeans = c();
+#Calculate the mean for each column
+for(i in 1:ncol(inputDataMatrix)){
+  column = inputDataMatrix[,i];
+  calculatedMean = sum(column)/length(column);
+  sampleMeans = c(sampleMeans, calculatedMean);
+}
+#Calculate the covariance matrix
+covariance_matrix = cov(inputDataMatrix);
+
+distance = mahalanobis_distance(inputDataMatrix[3,], sampleMeans, covariance_matrix);
+print(distance)
+
+```
+
+- Manhattan Distance (`manhattan_dist()`)
+```{r, echo=TRUE}
+distance = manhattan_dist(c(1,2), c(3,4));
+print(distance);
+```
+
+The statistical functions can be used like this:
+
+- Mean (`mean_outliersLearn()`)
+```{r, echo=TRUE}
+mean = mean_outliersLearn(inputData[,1]);
+print(mean);
+```
+
+- Standard Deviation (`sd_outliersLearn()`)
+```{r, echo=TRUE}
+sd = sd_outliersLearn(inputData[,1], mean);
+print(sd); 
+```
+
+- Quantile (`quantile_outliersLearn()`)
+```{r, echo=TRUE}
+q = quantile_outliersLearn(c(12,2,3,4,1,13), 0.60); 
+print(q);
+```
+
+
+Finally, the data-transforming function:
+- Transform to vector (`transform_to_vector()`)
+```{r, echo=TRUE}
+numeric_data = c(1, 2, 3)
+character_data = c("a", "b", "c")
+logical_data = c(TRUE, FALSE, TRUE)
+factor_data = factor(c("A", "B", "A"))
+integer_data = as.integer(c(1, 2, 3))
+complex_data = complex(real = c(1, 2, 3), imaginary = c(4, 5, 6))
+list_data = list(1, "apple", TRUE)
+data_frame_data = data.frame(x = c(1, 2, 3), y = c("a", "b", "c"))
+
+transformed_numeric = transform_to_vector(numeric_data);
+print(transformed_numeric);
+transformed_character = transform_to_vector(character_data);
+print(transformed_character);
+transformed_logical = transform_to_vector(logical_data);
+print(transformed_logical);
+transformed_factor = transform_to_vector(factor_data);
+print(transformed_factor);
+transformed_integer = transform_to_vector(integer_data);
+print(transformed_integer);
+transformed_complex = transform_to_vector(complex_data);
+print(transformed_complex);
+transformed_list = transform_to_vector(list_data);
+print(transformed_list);
+transformed_data_frame = transform_to_vector(data_frame_data);
+print(transformed_data_frame);
+
+```
+
+Now that the auxiliary functions are understood, the main algorithms implemented for outlier detection will be detailed in the following section.
+
+## Main outlier detection methods
+
+The main outlier detection methods implemented in the Outliers Learn package are:
+
+- `box_and_whiskers()`
+- `DBSCAN_method()`
+- `knn()`
+- `lof()`
+- `mahalanobis_method()`
+- `z_score_method()`
+
+This section will be dedicated on showing how to use this algorithm implementations.
+
+### Box and Whiskers (`box_and_whiskers()`)
+
+With the tutorial mode deactivated and d=2:
+```{r, echo=TRUE}
+boxandwhiskers(inputData,2,FALSE)
+```
+With the tutorial mode activated and d=2:
+```{r, echo=TRUE}
+boxandwhiskers(inputData,2,TRUE)
+```
+
+### DBSCAN (`DBSCAN_method()`)
+
+With the tutorial mode deactivated:
+```{r, echo=TRUE}
+eps = 4;
+min_pts = 3;
+DBSCAN_method(inputData, eps, min_pts, FALSE);
+```
+
+With the tutorial mode activated:
+```{r, echo=TRUE}
+eps = 4;
+min_pts = 3;
+DBSCAN_method(inputData, eps, min_pts, TRUE);
+```
+
+### KNN (`knn()`)
+
+With the tutorial mode deactivated, K=2 and d=3:
+```{r, echo=TRUE}
+knn(inputData,3,2,FALSE)
+```
+
+With the tutorial mode activated, K=2 and d=3
+```{r, echo=TRUE}
+knn(inputData,3,2,TRUE)
+```
+
+
+### LOF simplified (`lof()`)
+
+With the tutorial mode deactivated, K=3 and the threshold set to 0.5:
+```{r, echo=TRUE}
+lof(inputData, 3, 0.5, FALSE);
+```
+
+With the tutorial mode activated and same input parameters:
+```{r, echo=TRUE}
+lof(inputData, 3, 0.5, TRUE);
+```
+
+
+### Mahalanobis Method (`mahalanobis_method()`)
+
+With the tutorial mode deactivated and alpha set to 0.7: 
+```{r, echo=TRUE}
+mahalanobis_method(inputData, 0.7, FALSE);
+```
+
+With the tutorial mode activated and same value of alpha:
+```{r, echo=TRUE}
+mahalanobis_method(inputData, 0.7, TRUE);
+```
+
+
+### Z-score method (`z_score_method()`)
+
+With the tutorial mode deactivated and d set to 2:
+```{r, echo=TRUE}
+z_score_method(inputData,2,FALSE);
+```
+
+With the tutorial mode activated and same value of d:
+```{r, echo=TRUE}
+z_score_method(inputData,2,TRUE);
+```
+

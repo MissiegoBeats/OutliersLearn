@@ -10,7 +10,7 @@
 #' @return Quantile v calculated
 #'
 #' @examples
-#' q = quantile(c(12,2,3,4,1,13), 0.60)
+#' q = quantile_outliersLearn(c(12,2,3,4,1,13), 0.60)
 #'
 #' @export
 

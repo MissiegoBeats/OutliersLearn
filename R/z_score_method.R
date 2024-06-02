@@ -8,10 +8,12 @@
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
 #' @examples
-#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,
+#' 4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
 #' inputData = data.frame(inputData)
 #' z_score_method(inputData,2,FALSE) #Can be set to TRUE
 #'
+#' @importFrom graphics points
 #' @export
 
 z_score_method <- function(data, d, tutorialMode)
