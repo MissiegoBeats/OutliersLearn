@@ -7,10 +7,13 @@
 #' @param d Degree of outlier or distance at which an event is considered an outlier
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #' @examples
-#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
+#' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,
+#' 4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
 #' inputData = data.frame(inputData)
 #' boxandwhiskers(inputData,2,FALSE) #Can be set to TRUE
 #'
+#'
+#' @importFrom graphics points
 #' @export
 
 boxandwhiskers <- function(data,d,tutorialMode){
@@ -30,25 +33,12 @@ boxandwhiskers <- function(data,d,tutorialMode){
     message("\t\t(Q_1 - d * (Q_3 - Q_1), Q_3 + d * (Q_3 - Q_1))")
     message("\tBeing Q_1 and Q_3 the 1st and 3rd quartile. Notice that here we use the value 'd' (it affects on the results so it must be carefully chosen)")
     message("\tStep 4: Identify outliers as values that fall outside the interval calculated in step 3")
-    keepAsking = TRUE
-    while(keepAsking){
-      learnMoreQuartiles = readline("Do you want to learn more about how to calculate quartiles? (Y/N) \n")
-      learnMoreQuartiles = toupper(learnMoreQuartiles)
-      print(learnMoreQuartiles)
-      if(learnMoreQuartiles == 'Y'){
-        keepAsking = FALSE
-        message("Quantiles are elements that allow dividing an ordered set of data into equal-sized parts.")
-        message("\t-Quartiles: 4 equal parts")
-        message("\t-Deciles: 10 equal parts")
-        message("\t-Percentiles: 100 equal parts")
-        message("The function quantile.R that has been developed gives a closer look into how quantiles are calculated:")
-        dput(quantile_outliersLearn)
-      }else if(learnMoreQuartiles == 'N'){
-        keepAsking = FALSE
-      }else{
-        warning("The input must be Y or N")
-      }
-    }
+    message("Quantiles are elements that allow dividing an ordered set of data into equal-sized parts.")
+    message("\t-Quartiles: 4 equal parts")
+    message("\t-Deciles: 10 equal parts")
+    message("\t-Percentiles: 100 equal parts")
+    message("The function quantile.R that has been developed gives a closer look into how quantiles are calculated:")
+    dput(quantile_outliersLearn)
     message("Now we will apply this knowledge to the data given to obtain the outliers")
     message("Calculating the quantiles with the function quantile() (available on this package)")
     message("First we calculate the 1st quartile (quantile(data,0.25))")
