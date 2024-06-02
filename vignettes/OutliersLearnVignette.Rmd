@@ -4,7 +4,7 @@ author: "Andres Missiego Manjon"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Outliers Learn}
+  %\VignetteIndexEntry{OutliersLearnVignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
