@@ -4,7 +4,7 @@ Title: Educational Outlier Package with Common Outlier Detection Algorithms
 Version: 1.0.0
 Author: Andres Missiego Manjon [aut, cre],
         Juan Jose Cuadrado Gallego [aut]
-Maintainer: Andres Missiego Manjon <a.missiego@edu.uah.es>
+Maintainer: Andres Missiego Manjon <andres.missiego@edu.uah.es>
 Description: Outliers Learn is a package dedicated to some of the most important
     outlier detection algorithms. These algorithms include a tutorial mode option
     that shows a description of the algorithm and provides a step-by-step execution 

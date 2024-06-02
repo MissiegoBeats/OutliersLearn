@@ -233,4 +233,3 @@ With the tutorial mode activated and same value of d:
 ```{r, echo=TRUE}
 z_score_method(inputData,2,TRUE);
 ```
-
