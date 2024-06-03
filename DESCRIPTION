@@ -9,7 +9,10 @@ Description: OutliersLearn is a package dedicated to some of the most important
     outlier detection algorithms. These algorithms include a tutorial mode option
     that shows a description of the algorithm and provides a step-by-step execution 
     explanation of how it obtains the outliers from the given data with the 
-    specified input parameters.
+    specified input parameters. This package references the works of Azzedine Boukerche, 
+    Lining Zheng, and Omar Alfandi (2020) <doi:10.1145/3381028>, Abir Smiti (2020) 
+    <doi:10.1016/j.cosrev.2020.100306>, and Xiaogang Su, Chih-Ling Tsai (2011) 
+    <doi:10.1002/widm.19>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
