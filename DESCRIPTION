@@ -5,12 +5,12 @@ Version: 1.0.0
 Author: Andres Missiego Manjon [aut, cre],
         Juan Jose Cuadrado Gallego [aut]
 Maintainer: Andres Missiego Manjon <andres.missiego@edu.uah.es>
-Description: Outliers Learn is a package dedicated to some of the most important
+Description: OutliersLearn is a package dedicated to some of the most important
     outlier detection algorithms. These algorithms include a tutorial mode option
     that shows a description of the algorithm and provides a step-by-step execution 
-    explanation of how it obtains the outliers from the given data with the
+    explanation of how it obtains the outliers from the given data with the 
     specified input parameters.
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
