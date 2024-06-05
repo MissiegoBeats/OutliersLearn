@@ -13,6 +13,9 @@ boxandwhiskers(data, d, tutorialMode)
 
 \item{tutorialMode}{if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)}
 }
+\value{
+None, does not return any value
+}
 \description{
 This function implements the box & whiskers algorithm to detect outliers
 }
