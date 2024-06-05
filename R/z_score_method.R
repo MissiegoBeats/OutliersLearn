@@ -7,6 +7,8 @@
 #' @param d Degree of outlier or distance at which an event is considered an outlier
 #' @param tutorialMode if TRUE the tutorial mode is activated (the algorithm will include an explanation detailing the theory behind the outlier detection algorithm and a step by step explanation of how is the data processed to obtain the outliers following the theory mentioned earlier)
 #'
+#' @return None, does not return any value
+#'
 #' @examples
 #' inputData = t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,
 #' 4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c("r","d"))))
